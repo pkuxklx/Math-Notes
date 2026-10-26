@@ -1,0 +1,56 @@
+\begin{thebibliography}{1}
+
+\bibitem{absil_2008_optimization}
+P.-A. Absil, R.~Mahony, and R.~Sepulchre.
+\newblock {\em Optimization algorithms on matrix manifolds}.
+\newblock Princeton University Press, Princeton, NJ, 2008.
+\newblock With a foreword by Paul Van Dooren.
+
+\bibitem{Djokovic_2008_quaternion}
+D.~v.~Z. \Dbar~okovi\'c and B.~H. Smith.
+\newblock Quaternionic matrices: unitary similarity, simultaneous
+  triangularization and some trace identities.
+\newblock {\em Linear Algebra Appl.}, 428(4):890--910, 2008.
+
+\bibitem{dR15}
+R.~J. de~la Cruz.
+\newblock Each symplectic matrix is a product of four symplectic involutions.
+\newblock {\em Linear Algebra Appl.}, 466:382--400, 2015.
+
+\bibitem{golub_matrixcomp_2013}
+G.~H. Golub and C.~F. Van~Loan.
+\newblock {\em Matrix computations}.
+\newblock Johns Hopkins Studies in the Mathematical Sciences. Johns Hopkins
+  University Press, Baltimore, MD, fourth edition, 2013.
+
+\bibitem{Hall_2015_lie}
+B.~Hall.
+\newblock {\em Lie groups, {L}ie algebras, and representations}, volume 222 of
+  {\em Graduate Texts in Mathematics}.
+\newblock Springer, Cham, second edition, 2015.
+\newblock An elementary introduction.
+
+\bibitem{Helmke_1994_optim}
+U.~Helmke and J.~B. Moore.
+\newblock {\em Optimization and dynamical systems}.
+\newblock Communications and Control Engineering Series. Springer-Verlag
+  London, Ltd., London, 1994.
+\newblock With a foreword by R. Brockett.
+
+\bibitem{mishra2024williamson}
+H.~K. Mishra.
+\newblock On generalization of williamson's theorem to real symmetric matrices.
+\newblock {\em arXiv preprint arXiv:2408.04894}, 2024.
+
+\bibitem{paige_towards_1981}
+C.~C. Paige and M.~A. Saunders.
+\newblock Towards a generalized singular value decomposition.
+\newblock {\em SIAM J. Numer. Anal.}, 18(3):398--405, 1981.
+
+\bibitem{rodman_2014_quaternion}
+L.~Rodman.
+\newblock {\em Topics in quaternion linear algebra}.
+\newblock Princeton Series in Applied Mathematics. Princeton University Press,
+  Princeton, NJ, 2014.
+
+\end{thebibliography}
