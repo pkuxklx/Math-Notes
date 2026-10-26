@@ -1,0 +1,10 @@
+% !TeX root = ../main.tex
+\section{Optimization}
+\label{sec:optimization}
+\subsection{Lower Semicontinuity and Subdifferentials}
+Let $f: \R^n \to \R \cup \{+\infty\}$ be a proper lower-semicontinuous function.
+\begin{enumerate}
+    \item Define $\dom f\coloneqq \{x\in \R^n: \ f(x)<+\infty\}$.
+    \item For $x\in \dom f$, the Frechet subdifferential of $f$ at $x$ is 
+    \[ \hat{\partial} f(x) \coloneqq \{g \in \R^n:\ \lim \underset{y\ne x, y\to x}{\inf} \frac{1}{\|x-y\| } (f(y) - f(x) - < g, y-x> \}   \]
+\end{enumerate}

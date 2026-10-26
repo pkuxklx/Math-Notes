@@ -1,0 +1,149 @@
+% !TeX root = ../main.tex
+\section{Matrix Theory}
+\label{sec:matrix-theory}
+
+\subsection{Matrix Decompositions and Inertia}
+\label{sec:matrix-decompositions}
+\begin{enumerate}
+    \item CS Decomposition for $X=\begin{bmatrix} X_{11} & X_{12} \\ X_{21} & X_{22} \end{bmatrix} \in \U(n)$ with $X_{11}\in \C^{k\times k}$, $2k \le n$. (Carefully adopted from \cite[Theorem~2.5.3]{golub_matrixcomp_2013}, or \cite[Section~4]{paige_towards_1981}) 
+    \[ X= \diag(U_1, U_2) \begin{bmatrix} C & -S & 0 \\ S & C & 0 \\ 0 & 0 & I_{n-2k} \end{bmatrix} \diag(V_1,V_2)^* \]
+    where $U_1,V_1\in \U(k), U_2,V_2\in \U(n-k),C=\diag(\cos\theta_1,\dots,\cos\theta_k),S=\diag(\sin\theta_1,\dots,\sin\theta_k),\theta_i\in [0,\pi/2]$.
+    \item (Haynsworth inertia additivity formula) Let $H=\begin{bmatrix}
+        H_{11} & H_{12} \\ H_{12}^* & H_{22}
+    \end{bmatrix} \in \C^{n\times n}$ be hermitian and its inertia be a triple $\text{In}(H) \coloneqq (\pi(H), \nu(H),\delta(H))$, whose components are the numbers of positive, negative and zero eigenvalues of $H$. Assume $H_{11}$ is nonsingular. Then $\text{In}(H)=\text{In}(H_{11}) + \text{In}(H/H_{11})$, where $H/H_{11}=H_{22}-H_{12}^*H_{11}^{-1}H_{12}$ is the Schur complement.
+\end{enumerate}
+
+\subsection{Quaternions and Their Representations}
+\label{sec:quaternions}
+\begin{enumerate}
+    \item $q=a+b\ii +c\jj +d\kk \in \H$, where $\ii \jj = \kk, \ii^2=\jj^2=\kk^2=-1$. 
+    \item Denote $q = q_1 + q_2 \jj$ with $q_1,q_2 \in \C$. Denote $\Re (q) \coloneqq a$, $\Vec (q) \coloneqq q-\Re(q)$. 
+    \item Quaternion conjugate $\overline{q}\coloneqq a - b\ii -c\jj -d\kk = \overline{q_1} -q_2 \jj$. 
+    \item Representation via complex or real numbers. Let $\rho_1: \H \to \C^{2\times 2}$, $\rho_2: \C \to \R^{2\times 2}$, $\rho_3: \H \to \R^{4\times 4}$ be defined as
+    \[ \rho_1 \coloneqq \begin{bmatrix}
+        q_1 & q_2 \\
+        -\overline{q_2} & \overline{q_1}
+    \end{bmatrix},\ \text{where } q_1=a+b\ii,\ q_2=c+d\ii, \]
+    \[ \rho_2(a+b\ii) \coloneqq \begin{bmatrix}
+        a & -b \\ b & a
+    \end{bmatrix}, \]
+    \[ \rho_3(q) \coloneqq \rho_2 \circ \rho_1 (q) = \begin{bmatrix}
+        a & -b & c & -d \\
+        b & a & d & c \\
+        -c & -d & a & b \\
+        d & -c & -b & a
+    \end{bmatrix}. \]
+    \item For $q,q^{(i)}\in \H$,
+    \begin{align*}
+        \rho_1(q^{(1)} q^{(2)}) = \rho_1(q^{(1)}) \rho_1(q^{(2)}), \quad \rho_1 (\overline{q}) = \rho_1(q)^\h ; \\
+        \rho_3(q^{(1)} q^{(2)}) = \rho_3(q^{(1)}) \rho_3(q^{(2)}), \quad \rho_3 (\overline{q}) = \rho_3(q)^\tp.
+    \end{align*}
+\end{enumerate}
+ 
+\subsection{Quaternionic Matrices}
+\label{sec:quaternionic-matrices}
+\begin{enumerate}
+    \item For $A \in \H^{n\times n}$, $A=A_1+A_2\jj$ with $A_1, A_2 \in \C^{n\times n}$.
+    
+    Complex representation:
+        \[ \psi(A) \coloneqq \begin{bmatrix}
+        A_1 & A_2 \\ -\overline{A_2} & \overline{A_1}
+    \end{bmatrix} \]
+        \[ A^* \coloneqq A_1^\h - A_2^\tp \jj \]
+    where the operation $A_1^\h$ on $A_1 \in \mathbb{C}^{n\times n}$ just means transpose and complex conjugate.
+        \[ AB = (A_1B_1 - A_2 \overline{B_2}) + (A_1B_2 + A_2 \overline{B_1})\jj \]
+        \[ \ \psi(AB)=\psi(A) \psi(B), \; \psi(A^*)= \psi(A)^\h. \]
+    \item Define $\U(n, \H)\coloneqq \{ X \in \H^{n\times n}: \ XX^\h=I \}$. $\Sp(n)=\Sp(2n, \C) \cap \U(2n)$.
+    Then $\psi$ is a group isomorphism between them.
+    \item Real representation: now change the notation to $A=A_1+A_2\ii+A_3\jj + A_4\kk$ with $A_1,\dots,A_4 \in \R^{n\times n}$, then
+    \[ \varphi(A) \coloneqq \begin{bmatrix}
+        A_1 & -A_2 & A_3 & -A_4 \\
+        A_2 & A_1 & A_4 & A_3 \\
+        -A_3 & -A_4 & A_1 & A_2 \\
+        A_4 & -A_3 & -A_2 & A_1
+    \end{bmatrix} \]
+    \[ \varphi(AB) = \varphi(A) \varphi(B),\ \varphi(A^*) = \varphi(A)^\tp. \]
+    \item (Corollary) For $\alpha, \beta\in \H$, $A,B\in\H^{m\times n}$, \cite[Definition~3.2.1]{rodman_2014_quaternion}
+    \[ (\alpha A +\beta B)^* = A^* \alpha^* + B^* \beta^*,\ (AB)^*=B^* A^*, \ (A^*)^*=A. \]
+\end{enumerate}
+
+
+\subsubsection{Spectrum, EVD, and SVD}
+\begin{enumerate}
+    \item \cite[Chapter~2.2]{rodman_2014_quaternion} Similarity. $\text{Sim}(x) \coloneqq \{y \in \H:\ axa^{-1}=y \text{~for~some~} a\in \H \backslash \{0\} \}$.
+    \item Congruence. $\text{Con}(x) \coloneqq \{y \in \H:\ axa^*=y \text{~for~some~} a\in \H \backslash \{0\} \} = \bigcup_{\lambda >0} \{\lambda \text{Sim}(x)\}$. 
+    \item $\text{Sim}(x)=\Re(x)+|\Vec(x)|\mathbb{S}$, where the unit sphere $\mathbb{S}\coloneqq \{q\in \H: \ \Re(q)=0,\ |q|=1 \}$.
+    \item For $A\in \H^{n\times n}$, $(v,\alpha) \in (\H^n \backslash \{0\})\times \H$ is a right eigenvector/eigenvalue of $A$ if $Av=v\alpha$. Denote the set of all right eigenvalues as the spectrum $\sigma(A)$.
+    \item If $\alpha \in \sigma(A)$, then $\text{Sim}(\alpha) \subseteq \sigma(A)$. ($A(v\lambda)=(v\lambda)(\lambda^{-1} \alpha \lambda)$, $\lambda\neq 0$.)
+    \item \cite[Theorem~5.3.6]{rodman_2014_quaternion} If $A\in \U(n,\H)$, then there exists $U\in \U(n,\H)$, $D=\diag(e^{\ii\theta_1},\dots,e^{\ii\theta_n})$ with $\theta_i\in [0,\pi]$, s.t. $A=UDU^*$. 
+    \item If $A\in \H^{n\times n}$ is hermitian ($A=A^*$), there exists $U\in \U(n,\H)$ s.t. $U^*AU$ is real and diagonal.
+    \item \cite[Proposition~3.2.5]{rodman_2014_quaternion} For $A\in \H^{m\times n}$, there exists SVD
+    \[ A=U\begin{bmatrix}
+        \diag(a_1,\dots,a_k) & 0 \\ 0 & 0_{(m-k)\times(n-k)}
+    \end{bmatrix}V^* \]
+    with unique singular values $a_1
+    \ge \dots \ge a_k >0$.
+    \item Because $\H$ is not commutative, we define determinant and trace through complex representations. For $A\in \H^{n\times n}$, $\tr_\C(A) \coloneqq 2 \Re(\sum_{i=1}^n a_{ii})=\tr(\psi(A))$. \cite[Section~5.9]{rodman_2014_quaternion} \cite[Definition~2.1]{Djokovic_2008_quaternion}
+\end{enumerate}
+
+\subsection{Symplectic and Hamiltonian Matrices}
+\label{sec:symplectic-matrices}
+\begin{enumerate}
+    \item Let $A=\begin{bmatrix}
+        A_{11} & A_{12} \\ A_{21} & A_{22}
+    \end{bmatrix}$.
+    \item $A \in \C^{2n\times 2n}$ is called Hamiltonian if $J^{-1}A^\tp J=-A$ (equivalently, $(JA)^\tp=JA$). Then $A_1=-A_4^\tp$, and $A_2,A_3$ are symmetric. 
+    \item Skew-Hamiltonian if $J^{-1}A^\tp J=A$. Then $A_1=A_4^\tp$, and $A_2,A_3$ are skew-symmetric. 
+    \item \cite[Proposition~1]{dR15} $A\in \Sp(2n, \C)$ if and only if $A^\tp J A = J$, or $JA^{-1}=A^\tp J$. Then $A_{11} A_{22}^\tp - A_{12} A_{21}^\tp = I$, $A_{11} A_{12}^\tp$ and $A_{21} A_{22}^\tp$ symmetric. 
+    \item If $A \in \Sp(2n,\C)$, so is $A^{-1}, A^\tp, \overline{A}, A^*$.
+    \item \cite[Lemma~3]{dR15} (double-cited) Let $A,B$ be symplectic. Then $A,B$ are similar if and only if they are symplectically similar.
+    \item Denote expanding sum: $A \boxplus B=\begin{bmatrix}
+        A_{11} \oplus B_{11} & ... \\ ... & A_{22} \oplus B_{22}
+    \end{bmatrix}$.
+    \item \cite[Lemma~5]{dR15} Each symplectic matrix is symplectically similar to the expanding sum of matrices of the form:
+    \begin{gather*}
+    J_k(\lambda) \oplus J_{k}(\lambda)^{-\tp} \quad (\lambda \neq 0,\pm 1), \\
+    J_{2k-1}(\varepsilon) \oplus J_{2k-1}(\varepsilon)^{-\tp} \quad (\varepsilon=\pm 1), \\
+    \pm F_{2k} = \pm \begin{bmatrix}
+        J_k(1) & \begin{bmatrix} 0_{k-1,k} \\ u \end{bmatrix} \\
+        0 & J_k(1)^{-\tp}
+    \end{bmatrix}
+    \end{gather*}
+    where $u=[(-1)^{k-1},(-1)^{k-2},\dots,1]$.
+    \item (Williamson’s Thm) Let $M\in \R^{2n\times 2n}$ be a strictly positive definite real symmetric matrix. Then there exists $S \in \Sp(n,\R)$ and a positive diagonal $D$ such that $SMS^\tp = \diag(D, D)$. For generalization to positive semi-definite matrices and real symmetric matrices, see \cite{mishra2024williamson}.
+\end{enumerate}
+
+\subsection{Compact Symplectic Groups}
+\label{sec:compact-symplectic-groups}
+\begin{enumerate}
+    \item (Compact symplectic group) As $\C^{2n\times 2n}$ block matrices:
+    \begin{align*}
+    \Sp(n) &= \left\{ \begin{bmatrix}
+        A & B \\ -\overline{B} & \overline{A}
+    \end{bmatrix}: \begin{gathered}
+        A,B \in \C^{n\times n}, \\
+        AA^\h +BB^\h =I_n, \quad AB^\tp = BA^\tp
+    \end{gathered} \right\} , \\
+    \Sp(n) &= \left\{ Q \begin{bmatrix}
+        D & \\ & \overline{D}
+    \end{bmatrix} Q^\h: \begin{gathered}
+        Q \in \Sp(n), \\
+        D = \diag(e^{\ii\theta_1},\dots,e^{\ii \theta_n}), \\
+        \theta_i \in [0, 2\pi)
+    \end{gathered} \right\}.
+    \end{align*}
+    \[ \mathfrak{sp}(n) \coloneqq \Biggl\{ \begin{bmatrix}
+        A & B \\ -\overline{B} & \overline{A}
+    \end{bmatrix}: A=-A^\h,\; B=B^\tp \Biggr\} \]
+\end{enumerate}
+
+\subsubsection{Unitary Groups as Real Symplectic Matrices}
+\begin{enumerate}
+    \item ($\U(n) \cong \SO(2n) \cap \Sp(2n,\R)$) Let $A=B+\ii C \in \U(n)$. Let $\rho: \U(n) \to \SO(2n)$, $\rho(A) \coloneqq \begin{bmatrix}
+        B & -C \\ C & B
+    \end{bmatrix} = P \diag(A, \overline{A})P^{-1}$, where $P=\begin{bmatrix}
+        I & I \\ -\ii I & \ii I
+    \end{bmatrix}$. $\rho$ is a group isomorphism.
+\end{enumerate}
+
+For tangent spaces and matrix orbits, see Section~\ref{sec:matrix-group-geometry}.

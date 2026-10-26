@@ -1,0 +1,56 @@
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{tikz-cd}
+\usepackage{xurl}
+\usepackage{hyperref}
+
+\let\O\undefine
+\let\H\undefine
+\let\emptyset\varnothing
+\let\Re\undefine
+\let\Vec\undefine
+\newcommand{\Re}{\mathfrak{R}}
+\newcommand{\Vec}{\mathfrak{V}}
+\newcommand{\ii}{{\ensuremath{\mathrm{i}}}}
+\newcommand{\jj}{{\ensuremath{\mathrm{j}}}}
+\newcommand{\kk}{{\ensuremath{\mathrm{k}}}}
+\newcommand{\h}{{\scriptscriptstyle\mathsf{H}}}
+\newcommand{\tp}{{\scriptscriptstyle\mathsf{T}}}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\O}{O}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Cl}{Cl}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\H}{\mathbb{H}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\dom}{\text{dom}}
+
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+% Navigation: compact contents, detailed PDF bookmarks, and unobtrusive links.
+\hypersetup{
+    pdftitle={Math Notes},
+    pdfpagemode=UseOutlines,
+    bookmarksnumbered=true,
+    bookmarksopen=true,
+    bookmarksopenlevel=1,
+    bookmarksdepth=3,
+    linktoc=all,
+    hidelinks
+}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+% The bibliography uses this command for the stroked D in Djokovic's name.
+\providecommand{\Dbar}{\DJ}

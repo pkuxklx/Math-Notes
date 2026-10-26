@@ -1,0 +1,58 @@
+% !TeX root = ../main.tex
+\section{Algebras}
+\label{sec:algebras}
+
+\subsection{Algebra Basics}
+\begin{enumerate}
+    \item (Algebra) An algebra $A$ over field $K$ is a vector space with an additional product operation $\cdot: A \times A \to A$, such that the following holds for all $x,y,z\in A$, $a,b\in K$:
+        \begin{enumerate}
+            \item Right distributivity: $(x+y)\cdot z = x\cdot z + y\cdot z$
+            \item Left distributivity: $z \cdot (x+y) = z\cdot x + z\cdot y$
+            \item Compatibility with scalars: $(ax) \cdot (by)= (ab) (x\cdot y)$
+        \end{enumerate}
+    \item (Unital, Zero)
+\end{enumerate}
+
+\subsection{Clifford Algebras}
+\begin{enumerate}
+    \item Let $V$ be a vector space, $K$ be a field. Let $Q: V \to K$ be a quadratic form.
+    \item Tensor algebra $T(V) \coloneqq \bigoplus_{d=0}^\infty V^{\otimes d} $. The two-sided ideal 
+    \[ I_Q = \langle v^2 - Q(v)1 \rangle \coloneqq \{ a(v^2 - Q(v)1)b: a, b\in T(V) \}.\]
+    The Clifford algebra is $\operatorname{Cl}(V, Q) \coloneq
+     T(V) / I_Q$.
+     \item $K$-bilinear form associated with $Q$ is $B(u, v) \coloneq \frac{1}{2}(Q(u+v)-Q(u)-Q(v))$. So $uv+vu=2B(u,v)1$ \footnote{Assume $2$ is invertible in $K$.}, 
+     and $Q(v)=B(v,v)$.
+     \item (Abstract definition) A Clifford algebra $\Cl(V,Q)$ is a pair $(B, i)$, where $B$ is a unital associative algebra of $K$ and $i$ is a linear map $i:V \to B$ such that $i(v)^2=Q(v) 1_B$. \\
+     (Universal property) Given any unital associative algebra $A$ over $K$ and linear map $j:V\to A$ such that $j(v)^2=Q(v)1_A$, there is a unique algebra homomorphism $f:B\to A$ such that $f\circ i=j$. The commutative diagram:
+     \[
+    \begin{tikzcd}
+    V \arrow[r, "i"] \arrow[dr, "j"'] 
+      & \Cl(V,Q) \arrow[d, dashed, "f"] \\
+      & A
+    \end{tikzcd}
+    \]
+    \item (Classification of Clifford algebra with $K=\R$ or $\C$)
+    \item \url{https://math.stackexchange.com/questions/4925361/clifford-algebra-for-hermitian-forms} \\
+    \url{https://math.stackexchange.com/questions/4653580/are-there-unitary-clifford-alegbras-in-analogy-with-orthogonal-and-symplectic/4653718#4653718}
+\end{enumerate}
+\subsection{CAR Algebras}
+\subsection{Weyl Algebras}
+\subsection{\texorpdfstring{$*$-Algebras and $C^*$-Algebras}{*-Algebras and C*-Algebras}}
+\begin{enumerate}
+    \item (*-ring) $R$ is a ring with an antiautomorphism/involution map $*: R \to R$ such that for all $x,y\in R$,
+        \begin{enumerate}
+            \item $(x+y)^*=x^*+y^*$, $(xy)^*=y^* x^*$
+            \item $1^*=1$, $(x^*)^*=x$
+        \end{enumerate}
+    \item (*-algebra) $A$ is a *-algebra, if $A$ is an associative algebra and is a *-ring with involution $*$ over a commutative *-ring $R$ with involution $'$, such that for all $r\in R,x\in A$, $(rx)^*=r' x^*$. \\
+    Since $A$ is *-ring, we have for $x,y\in A$, $\lambda,\mu\in R$
+        \begin{enumerate}
+            \item $x^{**}=x$, $(xy)^*=y^* x^*$
+            \item $(\lambda x+\mu y)^*=\lambda' x^* + \mu' y^*$
+        \end{enumerate}
+    \item (*-homomorphism) an algebra homomorphism $f:A\to B$ that is also compatible with the involutions of $A, B$, i.e., $f(a^*)=f(a)^*$ for all $a\in A$. \\
+    (Example) $B=\R^{2n\times 2n}$ with $*$ being transpose over base ring $R_B=\R$ with trivial identical involution $r'=r$. $A=\C^{n\times n}$ with $*$ being conjugate transpose over base ring $R_A=\C$. The embedding $f$ of $\C^{n\times n}$ into $\R^{2n\times 2n}$ is a *-homomorphism. 
+    \item (Banach algebra) is an associative algebra $A$ over $\R$ or $\C$ and is a Banach space with norm satisfying $\|xy\| \le \|x\| \|y\| $ fo all $x,y\in A$.
+    \item (C*-algebra) $A$ is a Banach and *-algebra over $\C$, with the C* identity $\|xx^*\|=\|x\|^2$ for all $x\in A$. \\
+    (Example) $A=\C^{n\times n}$ with operator norm $\|\cdot\|_2$.
+\end{enumerate}

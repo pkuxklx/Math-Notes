@@ -1,0 +1,108 @@
+% !TeX root = ../main.tex
+\section{Lie Groups and Lie Algebras}
+\label{sec:lie-theory}
+
+\subsection{Lie Groups and Group Actions}
+\label{sec:lie-groups}
+\begin{enumerate}
+    \item $G$ is a Lie group if it is a group and a smooth manifold s.t. $G\times G \to G$, $(x,y) \mapsto xy^{-1}$ is a smooth map. The Lie algebra of $G$ is $\mathfrak{g}\coloneqq T_e G$.
+    \item (Action) A Lie group action of $G$ on a smooth manifold $M$ is a smooth map \[\sigma: G\times M \to M, \ (g,x) \mapsto g\cdot x\]
+    satisfying $\forall g,h\in G, \forall x\in M$, $g\cdot(h\cdot x) = (gh) \cdot x, e\cdot x=x$. The group action $\sigma$ is called transitive if for any $x,y\in M$ there exists $g\in G$ s.t. $y=g\cdot x$. $M$ is called homogeneous if there exists a transitive $G$-action on $M$.
+    \item Each orbit of the group action is one equivalent class. The orbit $\mathcal{O}(x) \coloneqq \{g\cdot x: g\in G\}$. If $G$ is a compact Lie group, $\mathcal{O}(x)$ is a smooth, compact submanifold of $M$. $M/G \coloneqq \{ \mathcal{O}(x): x\in M \}$. \cite[Section~2.1]{Helmke_1994_optim}
+    \item The stabilizer $\text{Stab}(x)\coloneqq \{g \in G: \ g\cdot x=x\}$. For a subgroup $H \le G$, the set of coset classes $G/H\coloneqq\{g\cdot H: g\in G\}$. \cite[Section~2.1]{Helmke_1994_optim}
+    \item For fixed $x\in M$, $\overline{\sigma}_x: G/\text{Stab}(x) \to \mathcal{O}(x), \ g \text{Stab}(x) \mapsto g\cdot x$ is a smooth bijection. (The orbit-stabilizer Thm naturally follows.) $\overline{\sigma}_x$ is a diffeomorphism if $G$ is a compact Lie group. \cite[Section~2.1]{Helmke_1994_optim}
+    \item Isometry group of a metric space $V$ is the set of all bijective isometries (distance-preserving maps) from $V$ to itself.
+\end{enumerate}
+
+\subsection{Matrix Groups and Orbit Geometry}
+\label{sec:matrix-group-geometry}
+For concrete quaternionic and symplectic matrix representations, see Section~\ref{sec:matrix-theory}.
+
+\begin{enumerate}
+    \item $T_Q \O(n) = \{QX \in \R^{n\times n}:\ X+X^\tp=0\} = \{XQ \in \R^{n\times n}:\ X+X^\tp=0\}$. Since $XQ = Q\underbrace{ Q^\tp XQ}_{X'}$. Similar structure holds for $\U(n), \U(n,\H)$.
+    \item $T_Q \U(n,\H) = \{ QX \in \H^{n\times n}:\ X + X^*=0 \}$.
+    \item $\dim_\R \U(n,\H)=2n^2+n=\dim_\R \{X\in \H^{n\times n}:\ X+X^*=0\}$.
+    \item Let $Q=\diag(\lambda_1 I_{n_1},\dots, \lambda_r I_{n_r})$, $M(Q)\coloneqq \{OQO^\tp: O\in \O(n)\}$. For $H\in M(Q)$, \[ T_H M(Q) = \{[H,\Omega]: \Omega \in \R^{n\times n}, \ \Omega = -\Omega^\tp\}\] 
+    \cite[Lemma~2.1.3]{Helmke_1994_optim} and its orthogonal complement w.r.t. $\mathsf{S}^2(\R^n)\coloneqq \{X\in \R^{n\times n}: X=X^\tp\}$ is 
+    \[ N_H M(Q) = \{ S \in \mathsf{S}^2(\R^n): [H, S]=0 \}.\]
+\end{enumerate}
+
+\subsection{Lie Algebras and the Adjoint Action}
+\begin{enumerate}
+    \item A Lie algebra is called \underline{simple} if it is non-abelian and doesn't have any non-zero proper ideals. A Lie algebra is called \underline{semisimple} if it is a direct sum of simple Lie algebras.
+    \item For $g,h\in G$, $\text{Ad}_g(h) \coloneqq ghg^{-1}$. For $x,y\in \mathfrak{g}$,
+    \[
+        \text{Ad}_g(x) \coloneqq \frac{d}{dt}|_{t=0} (g \exp(tx)g^{-1})
+    \]
+    and $\text{Ad}_g[x,y]=[]$
+\end{enumerate}
+\subsection{Cartan Subalgebras}
+\begin{enumerate}
+    \item Let $\mathfrak{g}$ be a Lie algebra. Say $\mathfrak{g}$ is nilpotent if $\mathfrak{g}_n=0$ for some $n\in \mathbb{N}$, where $\mathfrak{g}_0 \coloneqq \mathfrak{g}$ and $\mathfrak{g}_n = [\mathfrak{g}, \mathfrak{g}_{n-1}]$. (Equivalently, $\text{ad}_{X_1}\circ \dots \circ \text{ad}_{X_n} (Y) =0$ for any $X_1,\dots,X_n,Y\in \mathfrak{g}$.)
+    \item (En)
+\end{enumerate}
+
+\subsection{Killing Form}
+\begin{enumerate}
+    \item Killing form. Let $\mathfrak{g}$ be a finite-dim Lie algebra over field $K$ with characteristic $0$. For $x,y
+    \in \mathfrak{g}$, define the adjoint endomorphism $\text{ad}_x(y) = [x,y]$. The Killing form on $\mathfrak{g}$ is $B(x,y) \coloneqq \tr\big( \text{ad}_x \circ \text{ad}_y \big)$.
+        \begin{enumerate}
+            \item $B(\cdot,\cdot)$ is bilinear and symmetric.
+            \item $B([x,y],z)=B(x,[y,z])$. (Hint: $\text{ad}: \mathfrak{g} \to \text{End}(\mathfrak{g})$ is a Lie algebra homomorphism. \cite[Proposition~3.8]{Hall_2015_lie})
+            \item If $\phi:\mathfrak{g} \to \mathfrak{g}$ is a Lie algebra automorphism, then $B(\phi(x),\phi(y))=B(x,y)$. (Hint: $\text{ad}_{\phi(x)}=\phi \circ \text{ad}_x \circ \phi^{-1}$.)
+            \item $\mathfrak{g}$ is semisimple iff $B(\cdot,\cdot)$ is non-degenerate.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Homogeneous Spaces}
+\label{sec:homogeneous-spaces}
+\begin{enumerate}
+    \item Homogeneous space. Let $G$ be a Lie group acting smoothly and transitively on a manifold $M$. Given $o\in M$, let $K \coloneqq \{g \in G: g\cdot o=o\}$ be the stabilizer. Then $M$ is diffeomorphic to $G/K$.
+        \begin{enumerate}
+            \item Let $K_o$, $K_t$ be the stabilizers of $o,t$. Then $K_t = g K_o g^{-1}$ where $t=g\cdot o$. (Different stabilizers are conjugate to each other.)
+            \item $\Phi: M \to G/K$, $g \cdot o \mapsto gK$.
+            \item (Ex.) $G=\SO(n)$, $K=\SO(n-1)$, $G/K \cong \mathrm{S}^{n-1}$, the unit sphere in $\R^n$.
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Symmetric Spaces}
+\begin{enumerate}
+    \item Symmetric space. A homogeneous space $G/K$ is symmetric if there exists an involutive automorphism (Cartan involution) $\theta: G\to G$, $\theta^2=\mathrm{id}$ s.t. $K = \{g \in G: \theta(g)=g\}$. 
+        \begin{enumerate}
+            \item $d\theta: \mathfrak{g} \to \mathfrak{g}$, $(d\theta)^2=\mathrm{id}$ is also an involution.
+            \item Cartan decomposition. $\mathfrak{g}=\mathfrak{k} \oplus \mathfrak{p}$, where $\mathfrak{k} = \text{Lie}(K)$ and the $+1$-eigenspace of $d\theta$, $\mathfrak{p}$ is the $-1$-eigenspace. $[\mathfrak{k},\mathfrak{k}]\subseteq \mathfrak{k}$, $[\mathfrak{k},\mathfrak{p}]\subseteq \mathfrak{p}$, $[\mathfrak{p},\mathfrak{p}] \subseteq\mathfrak{k}$. (Hint: $d\theta$ is a Lie algebra automorphism \cite[Theorem~3.28]{Hall_2015_lie}, so $d\theta([X,Y])=[d\theta(X),d\theta(Y)]$ for $X,Y\in\mathfrak{g}$.)
+            \item Let \red{Killing form, compact/noncompact?}, 
+        \end{enumerate}
+\end{enumerate}
+
+\subsection{Tori, Root Systems, and Weyl Groups}
+\begin{enumerate}
+    \item (Torus) A torus $T$ in a compact Lie group $G$ is a compact, connected, abelian Lie subgroup of $G$.
+    \item Let $E$ be a finite-dim Euclidean vector space, with standard inner product $(\cdot,\cdot)$. Define the reflection about the hyperplane perpendicular to $\alpha$ as $\sigma_\alpha(v) \coloneqq v - 2\frac{(\alpha,v)}{(\alpha,\alpha)}\alpha$. A root system $\Phi$ in $E$ is a finite set of non-zero vectors (roots) that satisfy:
+        \begin{enumerate}
+            \item $\Phi$ span $E$.
+            \item The only scalar multiples of a root $\alpha\in \Phi$ that is also in $\Phi$ are $\alpha, -\alpha$.
+            \item For any $\alpha,\beta\in \Phi$, $\sigma_\alpha(\beta) \in \Phi$. ($\Phi$ is closed under reflection through the hyperplane perpendicular to $\alpha$.)
+            \item (Integrality) For any $\alpha,\beta\in \Phi$, $2 \frac{(\alpha,\beta)}{(\alpha,\alpha)} \in \mathbb{Z}$.
+        \end{enumerate}
+    \item Given a root system $\Phi$, we can always choose (in many ways) $\Phi^+ \subseteq \Phi$ (called positive roots) s.t. 
+        \begin{enumerate}
+            \item For each $\alpha \in \Phi$, exactly one of $\alpha,-\alpha$ is in $\Phi^+$.
+            \item For two distinct $\alpha,\beta \in \Phi^+$, if $\alpha+\beta \in \Phi$, then $\alpha+\beta \in \Phi^+$.
+        \end{enumerate}
+        After choosing $\Phi^+$, $-\Phi^+$ is called negative roots.
+    \item Simple roots $\Delta \subseteq \Phi^+$. Each element of $\Delta$ cannot be written as the sum of two elements of $\Phi^+$. Properties of $\Delta$:
+        \begin{enumerate}
+            \item For every $\alpha \in \Phi$, we can write $\alpha=\sum_i c_i v_i$ with $v_i \in \Delta$, $c_i \in \mathbb{Z}$.
+            \item The coefficients $c_i$ are either all non-negative or all non-positive.
+        \end{enumerate}
+    \item The Weyl group of $\Phi$ is the group of transformations of $E$ generated by all the reflections $\{\sigma_\alpha: \alpha \in \Phi\}$. It is a subgroup of the isometry group on $\Phi$.
+    
+    The hyperplanes intersect $E$ into disconnected components. Each component is called a Weyl chamber.
+    \item Let $K$ be a connected compact Lie group and let $T$ be a maximal torus in $K$. Define the normalizer and centralizer
+    \begin{align*}
+        N(T) &\coloneq \{ x\in K: xtx^{-1} \in T, \forall t\in T \}, \\
+        Z(T) &\coloneq \{ x\in K: xtx^{-1}=t, \forall t\in T \}.
+    \end{align*}
+    The Weyl group of $K$ (relative to $T$) is $W=N(T)/Z(T)$.
+\end{enumerate}

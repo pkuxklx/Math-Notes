@@ -1,0 +1,148 @@
+% !TeX root = ../main.tex
+\section{Quantum Information}
+\label{sec:quantum-information}
+
+\subsection{Pure and Mixed States}
+
+\begin{enumerate}
+    \item A \underline{density matrix} (quantum state) on a finite-dimensional Hilbert space $\mathcal{H}$ is a matrix
+    $\rho: \mathcal{H} \to \mathcal{H}$, $\rho \succeq 0$, $\tr(\rho)=1$.
+    \item A state $\rho$ is called \underline{pure} if
+    $\rho = |\psi\rangle\langle\psi|$ for some unit vector $|\psi\rangle\in\mathcal{H}$. Equivalently,
+    $\rank(\rho)=1$.
+
+    \item A state is called \underline{mixed} if it is not pure. Equivalently, $\rank(\rho)>1$.
+    Every mixed state can be written as a convex combination of pure states:
+    \[
+        \rho
+        =
+        \sum_{i=1}^r
+        p_i |\psi_i\rangle\langle\psi_i|,
+        \qquad
+        p_i\geq 0,
+        \qquad
+        \sum_{i=1}^r p_i=1.
+    \]
+    Such a decomposition is generally not unique. One choice can be given by the spectral theorem
+    \[
+        \rho
+        =
+        \sum_{i=1}^{\rank(\rho)}
+        \lambda_i
+        |u_i\rangle\langle u_i|,
+    \]
+    where $\lambda_i>0$, $\sum_i \lambda_i=1$, and $\{u_i\}\subseteq \mathcal{H}$ are orthonormal.
+\end{enumerate}
+
+\subsection{Separable and Entangled States}
+
+\begin{enumerate}
+    \item Suppose the Hilbert space has a tensor-product decomposition
+    $\mathcal{H}=\mathcal{H}_A\otimes\mathcal{H}_B$.
+    Entanglement is defined relative to this choice of subsystems.
+
+    \item A state $\rho$ on $\mathcal{H}_A\otimes\mathcal{H}_B$ is called
+    \underline{separable} if it can be written as
+    \[
+        \rho
+        =
+        \sum_{i=1}^r
+        p_i\,\rho_i^A\otimes\rho_i^B,
+        \qquad
+        p_i\geq 0,
+        \qquad
+        \sum_{i=1}^r p_i=1,
+    \]
+    where $\rho_i^A$ and $\rho_i^B$ are density matrices on
+    $\mathcal{H}_A$ and $\mathcal{H}_B$, respectively.
+    If no such decomposition exists, $\rho$ is called \underline{entangled}. \footnote{Here $\rank(\rho_i^A\otimes\rho_i^B)=\rank(\rho_i^A) \rank(\rho_i^B)\ge 1$, so $r \ge \rank(\rho)$.}
+    
+    \item For a pure state $\rho=|\psi\rangle\langle\psi|$,
+    separability is equivalent to the existence of
+    $|\psi_A\rangle\in\mathcal{H}_A$ and
+    $|\psi_B\rangle\in\mathcal{H}_B$ such that $|\psi\rangle = |\psi_A\rangle\otimes|\psi_B\rangle$.
+
+    \item (Schmidt decomposition.) Every pure state $|\psi\rangle\in \mathcal{H}$ can be written as
+    \[
+        |\psi\rangle
+        =
+        \sum_{i=1}^r
+        \sigma_i
+        |u_i\rangle\otimes|v_i\rangle,
+        \qquad
+        \sigma_i>0,
+        \qquad
+        \sum_{i=1}^r \sigma_i^2=1,
+    \]
+    where $\{u_i\}$ and $\{v_i\}$ are orthonormal sets of $\mathcal{H}_A$ and $\mathcal{H}_B$, respectively. The number $r$ is called the
+    \underline{Schmidt rank} of $|\psi\rangle$. 
+    \[
+        |\psi\rangle \text{ is separable}
+        \iff
+        r=1.
+    \]
+    \item (Ex.) Pure/mixed and separable/entangled are independent concepts. Consider $\mathcal{H}_A =\mathcal{H}_B= \C^2$, $\mathcal{H} = \C^2 \otimes \C^2\cong \C^4$. 
+    \begin{center}
+\renewcommand{\arraystretch}{1.6}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}c|c|c@{}}
+ & \textbf{Separable} & \textbf{Entangled} \\
+\hline
+\textbf{Pure}
+&
+\begin{tabular}{@{}c@{}}
+\(
+ |\psi \rangle=|00\rangle
+\) \\
+also called \\
+product state
+\end{tabular}
+&
+\begin{tabular}{@{}c@{}}
+\(
+|\Phi^+\rangle=\dfrac{|00\rangle+|11\rangle}{\sqrt2}
+\) \\
+The Bell state
+\end{tabular}
+\\
+\hline
+\textbf{Mixed}
+&
+\begin{tabular}{@{}c@{}}
+\(
+\begin{aligned}
+\rho &= \dfrac12|00\rangle\langle00| \\
+     &\quad + \dfrac12|11\rangle\langle11|
+\end{aligned}
+\) \\
+convex combination \\
+of product states
+\end{tabular}
+&
+\begin{tabular}{@{}c@{}}
+\(
+\rho_W
+=
+\dfrac12 |\Phi^+\rangle\langle\Phi^+|
++
+\dfrac12 \dfrac{I_4}{4}
+\) \\
+mixed entangled state 
+\end{tabular}
+\end{tabular}
+\end{center}
+Here
+\[
+\begin{aligned}
+\frac{I_4}{4}
+    &= \frac{I_2}{2} \otimes\frac{I_2}{2} \\
+    &= \big(\frac{1}{2}( |0\rangle \langle 0 | + |1\rangle \langle 1 | ) \big)
+       \big(\frac{1}{2}( |0\rangle \langle 0 | + |1\rangle \langle 1 | ) \big) \\
+    &= \frac{1}{4} \sum_{(i,j) \in \{0,1\}^2} |ij\rangle \langle ij|
+\end{aligned}
+\]
+is separable and mixed.
+\end{enumerate}
+
+\subsection{Partial Trace}
+For a bipartite system $\mathcal{H}=\mathcal{H}_A \otimes \mathcal{H}_B$,

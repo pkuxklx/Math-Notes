@@ -1,0 +1,114 @@
+% !TeX root = ../main.tex
+\section{Topology and Differential Geometry}
+\label{sec:topology-and-geometry}
+
+\subsection{Topological Spaces and Covers}
+\begin{enumerate}
+    \item Let $(X,\tau)$ be a topological space. $\tau$ is a family of subsets of $X$ that satisfies
+        \begin{enumerate}
+            \item $\varnothing \in \tau$, $X\in \tau$.
+            \item If $S_\alpha \in \tau$, then $\bigcup_{\alpha \in A} S_\alpha \in \tau $, where $A$ may be any index set (finite, countable, or uncountable).
+            \item If $S_i \in \tau$ and $\mathbb{N} \ni n < \infty$, then $\bigcap_{i=1}^n S_i \in \tau$.
+        \end{enumerate}
+        If $S \in \tau$, then $S$ is called an open set.
+    \item (Subspace topology) Given $S \subseteq X$, define $\tau_S \coloneqq \{S \cap U: U\in \tau\}$.
+    \item (Cover) The collection $\{U_\alpha: \alpha\in A\}$ is a cover of $X$ if $\underset{\alpha\in A}{\bigcup} U_\alpha=X$.
+    \item (Refinement) Let $C=\{U_\alpha\}_{\alpha\in A}, D=\{V_\beta\}_{\beta\in B}$ be two covers of $X$. $D$ is a refinement of $C$ if for all $\beta\in B$ there exists $\alpha\in A$ such that $V_\beta \subseteq U_\alpha$.
+    \item (Locally finite) A collection of subsets $\{U_\alpha\}_{\alpha\in A}$ is locally finite if each $x\in X$ has a neighborhood $N_x$ that only intersects finitely many sets in the collection.
+    \item (Paracompact) 
+\end{enumerate}
+\subsection{Connectedness, Homotopy, and Fundamental Groups}
+\begin{enumerate}
+    \item (Connected, path-connected, simply connected) $X$ is connected if it cannot be divided into two disjoint non-empty open sets. $X$ is path-connected if every $x,y\in X$ can be connected by a path. $X$ is simply connected if it is path-connected and any two paths with same endpoints are homotopic to each other.
+    \begin{enumerate}
+        \item $\text{connected} \Rightarrow \text{path-connected} \Rightarrow \text{simply connected}$
+        \item Connected but not path-connected: the topologist's sine curve $T \coloneqq \{ (x, \sin(1/x)): x\in (0,1] \} \cup \{(0,0)\}$ under the topology of the Euclidean plane.
+        \item 
+    \end{enumerate}
+    \item (Homotopy) Let $f,g: X \to Y$ be continuous. A homotopy between $f$ and $g$ is a continuous function $H:X \times [0,1] \to Y$ such that $H(x,0)=f(x)$ and $H(x,1)=g(x)$. 
+    \item (fundamental group) A loop based at $x_0$ is a continuous function $\gamma: [0,1]\to X$ such that $\gamma(0)=\gamma(1)=x_0$. The fundamental group of the topological space $X$ is
+    \[ \pi_1(X, x_0) \coloneqq \{ \text{all~loops~$\gamma$~based at $x_0$} \} / \text{homotopy}. \]
+    \begin{enumerate}
+        \item Given two loops $\gamma_0, \gamma_1$, 
+        \( (\gamma_0 \cdot \gamma_1)(t) = \begin{cases}
+            \gamma_0(2t) & 0 \le t \le \frac{1}{2}, \\
+            \gamma_1(2t-1) & \frac{1}{2} < t \le 1.
+        \end{cases}  \) (in the sense of equivalent classes, $[\gamma_0] \cdot [\gamma_1]=[\gamma_0 \cdot \gamma_1]$). $\gamma^{-1}(t)=\gamma(1-t)$. The identity element is the constant loop $e(t)=x_0$.
+        \item If $X$ is path-connected, $\pi_1(X,x_0)$ doesn't depend on $x_0$.
+    \end{enumerate}
+\end{enumerate}
+\subsection{Local Homeomorphisms and Covering Spaces}
+\begin{enumerate}
+    \item (Local homeomorphism) A function $f: X\to Y$ between two topological spaces is called a local homeomorphism if every $x\in X$ has a open neighborhood $U$, such that $f(U)$ is open in $Y$ and $f|_U: U \to f(U)$ is a homeomorphism.
+    \item Topological spaces $X, Y$ have \underline{same homotopy type} if there exist $f: X\to Y$ and $g: Y \to X$ such that $f\circ g \simeq \operatorname{id}_Y$ and $g \circ f \simeq \operatorname{id}_Y$, where $\simeq$ stands for homotopy equivalence. Homeomorphism $\Rightarrow$ of same homotopy type.
+    \item (Covering projection) A covering of $X$ is a continuous map 
+    \[ \pi: \tilde{X} \to X\] 
+    such that for every $x\in X$ there exists an open neighborhood $U_x$ of $x$ and a discrete space $D_x$ such that $\pi^{-1}(U_x)$ is the disjoint union $\bigcup_{d\in D_x} V_d$ and 
+    \[ \pi|_{V_d}: V_d \to U_x \]
+    is a homeomorphism for every $d\in D_x$. The open sets $V_d$ are called sheets. $\pi^{-1}(x)$ is called the fiber of $x$.
+\end{enumerate}
+
+\subsection{Manifolds and Tangent Spaces}
+\label{sec:manifolds}
+\begin{enumerate}
+    \item A chart for a topological space $M$ is a homeomorphism $\varphi$ from an open subset $U \subseteq M$ to an open subset of a Euclidean space. 
+    \item An atlas for $M$ is an indexed family $\{(U_\alpha, \varphi_\alpha):\ \alpha\in I\}$ of charts on $M$ s.t. $\bigcup_{\alpha \in I} U_\alpha=M$.
+    \item If each $U_\alpha$ is an open subset of $n$-dimensional Euclidean space, then $M$ is said to be an $n$-dimensional manifold.
+    \item Transition maps. Let $(U_\alpha, \varphi_\alpha)$ and $(U_\beta, \varphi_\beta)$ are two charts for $M$ s.t. $U_\alpha \cap U_\beta \neq \emptyset$. The transition map $\tau_{\alpha,\beta}: \varphi_\alpha(U_\alpha \cap U_\beta) \to \varphi_\beta (U_\alpha \cap U_\beta)$ is defined as $\tau_{\alpha,\beta} \coloneqq \varphi_\beta \circ \varphi_\alpha^{-1}$.
+    \item (Tangent space $T_x M$ defined through equivalent classes of curves.) For $x\in M$ and a smooth curve $\alpha: I \to M$ with $I\subseteq \R$, $\alpha(0)=x$. Let $(U,\phi)$ be a chart of $M$ with $x\in U$. Then $\phi \circ \alpha: I \to \phi(U) \subseteq\R^n$ is a smooth map and $(\phi \alpha)'(0)$ is its velocity at $0$ w.r.t. the current chart. We say two curves through $x$ are equivalent, i.e. $\alpha \sim_x \beta$, if $(\phi\alpha)'(0)=(\phi\beta)'(0)$ (Can prove this relation is chart-independent.) Then each equivalent class $[\alpha]_x$ is an element in $T_xM$. \cite[Definition~C.5.1]{Helmke_1994_optim}
+    
+    Given the chart $(U,\phi)$, $\tau^\phi_x: T_x M \to \R^n$, $\tau^\phi_x([\alpha]_x)=(\phi\alpha)'(0)$ is an isomorphism between two vector spaces.
+    \item (Submanifold) Let $M$ be a $n$-dimensional smooth manifold and $A \subseteq M$. If every $a\in A$ possesses a chart $(U, \phi)$ s.t. $a \in U$ and $\phi(A \cap U) = \phi(U) \cap (\R^k \times \{0\})$ for some $k$, then $A$ is a smooth submanifold of $M$. 
+    \item (Pullback) Let $f:M \to N$ be smooth, and let $\omega$ be a smooth $k$-form on $N$. Then there is a differentialn form $f^* \omega$ on $M$ called the pullback of $\omega$. For $p\in M$ and $v_1,\dots,v_k \in T_p M$, 
+    \[ (f^* \omega)_p (v_1,\dots,v_k) =\omega_{f(p)} (df_p(v_1),\dots, df_p(v_k)). \]
+    \item (Immersion, Embedding, Submersion) If $T_p f: T_p M \to T_{f(p)}N$ is injective for all $p\in M$, then $f$ is called an immersion. If $f$ is an immersion and $f:M \to f(M) \subseteq N$ is a homeomorphism, then $f$ is called an embedding. If $T_p f$ is surjective for all $p\in M$, then $f$ is called a submersion.
+\end{enumerate}
+
+\subsection{Differentials, Critical Values, and Rank Theorems}
+\begin{enumerate}
+    \item Let $M, N$ be differentiable manifolds of dimension $m$ and $n$ respectively. Let $f: M \to N$ be smooth. The differential is $Df: TM \to TN$. 
+    \item (Sard's Thm) Let $X \coloneqq \{x \in N :\ \rank(Df_x) < n \}$ be the set of critical points. Then the set of critical values $f(X)$ has measure zero in $N$.
+    \item (Constant rank Thm) If $\rank(Df) \equiv r$ in a neighborhood of $x\in M$, then locally there exist coordinate charts $\varphi, \psi$ such that $(\psi \circ f \circ \varphi)(u_1,\dots,u_m) = (u_1,\dots,u_r,\underbrace{0,\dots,0}_{n-r})$.
+    \item (Corollary) If $\rank(Df_x) < n$ for all $x\in M$, then $f$ is non-surjective.
+\end{enumerate}
+
+\subsection{Affine and Levi-Civita Connections}
+Stick to \cite{absil_2008_optimization}.
+\begin{enumerate}
+    \item (Affine connection, \cite[Section~5.2]{absil_2008_optimization}) Let $\mathfrak{X}(M)$ denote the set of smooth vector fields on manifold $M$, $\mathfrak{F}(M)$ the set of smooth, real-valued functions on $M$. 
+    
+    Let $f,g \in \mathfrak{F}(M)$ be functions and $\eta, \chi, \xi, \zeta \in \mathfrak{X}(M)$ be vector fields. An affine connection on $M$ is a mapping
+    \[ \nabla: \mathfrak{X}(M) \times \mathfrak{X}(M) \to \mathfrak{X}(M),\quad (\eta, \xi) \overset{\nabla}{\to} \nabla_\eta \xi \]
+    and satisfies
+        \begin{enumerate}
+            \item $\mathfrak{F}(M)$-linearity in $\eta$: $\nabla_{f\eta + g \chi} \xi = f \nabla_\eta \xi + g \nabla_\chi \xi$,
+            \item $\R$-linearity in $\xi$: $\nabla_\eta (a\xi + b\zeta) = a \nabla_\eta \xi + b \nabla_\eta \zeta$,
+            \item Product rule: $\nabla_\eta (f \xi) = (\eta f) \xi + f \nabla_\eta \xi$.
+        \end{enumerate}
+        Note that for $\eta,\xi \in \mathfrak{X}(M), f \in \mathfrak{F}(M)$, we have $\eta f \in \mathfrak{F}(M)$ (directional derivative of $f$ along $\eta$), and $f \xi \in \mathfrak{X}(M)$ (scalar-vector product) \cite[Section~3.5.4]{absil_2008_optimization}.
+    \item On an arbitrary (second-countable Hausdorff) manifold, there are infinitely many affine connections.
+    \item All possible affine connections of the Euclidean space $\R^n$ are characterized by $n^3$ real-valued functions $\Gamma^k_{ij}$ on $\R^n$, a.k.a. Christoffel symbols.
+    \item (Levi-Civita connection, \cite[Theorem~5.3.1]{absil_2008_optimization}) On a Riemannian manifold $M$, there exists a unique affine connection $\nabla$ that satisfies
+        \begin{enumerate}
+            \item $\nabla_{\eta}\xi - \nabla_{\xi}\eta = [\eta,\xi]$ (symmetry),
+            \item $\chi\langle \eta,\xi\rangle
+                = \langle \nabla_{\chi}\eta,\xi\rangle + \langle \eta,\nabla_{\chi}\xi\rangle$ (compatibility with the Riemannian metric),
+        \end{enumerate}
+        for all $\chi,\eta,\xi \in \mathfrak{X}(M)$.
+    \item \red{Curvature tensor, Sectional curvature}
+\end{enumerate}
+
+\subsection{Morse Theory}
+\begin{enumerate}
+    \item (Morse Lemma) Let $p$ be a non-degenerate critical point (Hessian non-singular) of $f: M \to \R$. Then there exists a chart $(x_1,\dots,x_n)$ in a neighborhood $U$ of $p$ s.t. $x_i(p)=0$ for all $i$ and $f(x)=f(p)-\sum_{i=1}^\gamma x_i^2 + \sum_{i=\gamma+1}^n x_i^2$ on $U$. Here $\gamma$ is the index of $f$ at $p$.
+    \item Non-degenerate critical points are isolated.
+    \item $f:M\to \R$ is called a Morse function if it is smooth and has no degenerate critical points.
+    \item $f: M 
+    \to \R$ is called a Morse-Bott function if it is smooth and the set $C$ of critical points is a closed submanifolds of $M$, such that for all $x\in C$, $T_x C = \ker ( H_f(x) )$. (The Hessian is non-singular when restricted to directions normal to the submanifold $C$.) 
+    \item $\{ \text{Morse functions} \} \subsetneq \{ \text{Morse-Bott functions} \}$. Isolated critical points are 0-dimensional submanifolds.
+    \item (Morse-Bott Lemma) Generalize the Morse Lemma.
+    \[
+        f(x) = f(p) - \sum_{i=1}^{n^-} x_i^2 + \sum_{i=n^-+1}^{n^-+n^+} x_i^2
+    \]
+    on $U$, where $n^0 \coloneqq n-n^- - n^+ = \dim C$.
+\end{enumerate}
