@@ -1,0 +1,153 @@
+\documentclass[12pt]{article} % Sets the document class to article with font size 12pt
+
+\input{header.tex}
+
+\title{Proof} 
+\author{Xiang Lu} 
+\date{\today} 
+
+\begin{document}
+
+\maketitle
+
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\section{Analysis}
+\[ \sum_{k=1}^n \sin kx = \frac{\sin \frac{(n+1)x}{2} \sin \frac{nx}{2}}{\sin \frac{x}{2}} \]
+\[ \sum_{k=1}^n \cos kx = ... \]
+\Prf $\sin kx = \Imag (e^{ikx})$.  \QED
+
+\section{Functional analysis}
+\subsection{Compact operators}
+\subsubsection{Riesz's lemma}
+Let $X$ be a Banach space and $Y \subsetneq X$ be a closed subspace. Then $\forall \epsilon > 0$, $\exists \|x\|=1$ s.t. $1-\epsilon \le d(x,Y) \le 1$.
+
+\subsection{}
+If $K$ compact, then $\ran(I-K)$ is closed.
+
+Every nonzero $\lambda\in \sigma(K)$ is an eigenvalue.
+ 
+\section{Complex analysis}
+\subsection{Cauchy's integral formula}
+Let $U$ be an open subset of $\C$. Let $f: U \to \C$ be holomorphic. Let $C$ be a simple closed contour in $U$, oriented counterclockwise. Then $\forall a \in U$,
+
+\[ f(a) = \frac{1}{2\pi i} \int_C \frac{f(z)}{z-a} dz, \quad f^{(n)}(a) = \frac{n!}{2\pi i} \int_C \frac{f(z)}{(z-a)^{n+1}} dz \]
+
+\subsection{Schwarz-Christoffel formula}
+A conformal map of the upper half-plane or the complex unit disk onto the interior of a simple polygon.
+
+\section{Numerical Range}
+\subsection{Boundary}
+Let $\theta\in [0, 2\pi)$, $H_\theta \coloneq \frac{1}{2}(e^{i\theta}A + e^{-i\theta}A^*)$. Let $v_\theta$ be the normalized eigenvector corresponding to the largest eigenvalue of $H_\theta$. A point $z\in \bd( W(A))$ if and only if $z=v_\theta^* A v_\theta $ for some $\theta$. \cite[Section~3]{Greenbaum2017Crouzeix}, \cite{greenbaum_numerical_2018}.
+
+Complete characterization: 
+
+\section{Crouzeix's conjecture}
+Our goal:
+\begin{equation}
+    \|f(A)\|_2 \le 2 \sup_{z\in W(A)} |f(z)| 
+    \label{C}
+\end{equation}
+
+\subsection{Cases that \ref{C} holds}
+The Crouzeix's conjecture is known to hold in the following cases: 
+\begin{enumerate}
+    \item $n=2$. \cite{crouzeix_bounds_2004}
+    \item $n=3$ and $A^3=0$. ?? \cite{greenbaum_numerical_2018}
+    \item   $f(x) = a x^k$, where $a\in \C, k\in \N$.
+    \item   $A = \lambda I + PD$, where $\lambda \in \C, D = \diag{d_1,\dots,d_n} \in \C^{n\times n}$, and $P$ is a permutation matrix. \cite{glader_crouzeixs_2017} Special case: the perturbed Jordan block $A = \begin{pmatrix}
+        \lambda & 1      &        &  \\
+                & \ddots & \ddots &  \\
+                &        & \ddots & 1 \\
+        \nu     &        &        & \lambda
+    \end{pmatrix}$. \cite{greenbaum_crouzeixs_2012}
+    \item $W(A)$ is a disk (can be translated or scaled). (??? What about ellipse?) \cite{greenbaum_numerical_2018}, \cite{crouzeix_bounds_2004} Thm 3.4
+    \item $\text{rank} (A) = 1$. \cite{oloughlin_2023} \\
+    \Prf $A=uv^\T$, then $A$ is actually a $2\times 2$ matrix on $\spn{u,v}$. \QED
+    \item $\deg p_A \le 2$, where $p_A(\cdot)$ is the minimal polynomial of $A$. Special case: $A^2=0$. \cite{oloughlin_2023} \\
+    \Prf Use \ref{dim_Krylov_le_2}. \QED
+\end{enumerate}
+
+\subsection{Corollaries from \ref{C}}
+If $A$, $A_i$ satisfy \ref{C}, then the followings also satisfy \ref{C}: \cite{oloughlin_2023}
+\begin{enumerate}
+    \item $B = \mu A + \lambda I$ for $\mu,\lambda \in \C$.
+    \item $A^*, A^\T$, and the block diagonal matrix $A_1 \oplus \dots \oplus A_n = \diag{A_1,\dots, A_n}$.
+    \item The tensor product $N_1 \otimes \dots \otimes A \otimes \dots \otimes N_n $, where each $N_i$ is normal. 
+    
+    \Prf $N_i = U_i D_i U_i^*$, where $U_i\in U(n)$. Note that $D_i \otimes A = d_{i1}A \oplus d_{i2}A \oplus \dots$. 
+    
+    Let $N_i \in \C^{n_i \times n_i}, A\in \C^{a\times a}$. Also note that $A \otimes N_i$ is unitarily similar to $N_i \otimes A$ through an order-exchanging unitary linear map $\sigma: x_1 \otimes x_2 \mapsto x_2 \otimes x_1 $, where $x_1 \in \C^{n_i}, x_2 \in \C^a$. So we can permute $A$ to the last. \QED
+\end{enumerate}
+
+\subsection{Blaschke product}
+Another formulation of \ref{C}:
+\begin{equation}
+    \psi(A) :=  \sup_{f \in \mathcal{A} (W(A))} \big\{ \|f(A)\|_2 \mid |f(z)| \le 1, z\in W(A) \big\} \le 2
+\end{equation}
+Note that the set of analytic functions $\mathcal{A}(\cdot) \subsetneq C^\infty(\cdot)$.
+
+A sup-attainer function $\hat f_A$ is called an extremal function of $A$. $\hat f$ takes the form $B \circ \varphi$, where $\varphi$ is a conformal mapping from $W(A)^\circ$ to $\D$, and 
+\[ B(z) = \exp(i\gamma) \prod_{j=1}^m \frac{z-\alpha_j}{1 - \bar{\alpha_j} z}, \ m \le n-1, \ |\alpha_j|<1 \]
+is a Blaschke product of degree $m$.
+
+\subsection{What may prove \ref{C}}
+\begin{enumerate}
+    \item Let $A\in \C^{n\times n}$, $\mathcal{V} \subseteq \C^n$ and $\dim \mathcal{V} \le 2$. Define $A_{\mathcal V} = P_{\mathcal V} A_{| \mathcal V}: \mathcal{V} \to \mathcal{V}$. \cite{oloughlin_2023}
+        \subitem If for any polynomial $p$, there exists an above $\mathcal{V}(p)$ such that $\|p(A)\|_2 \le \|p(A_{\mathcal V})\|_2$, then $A$ satisfies \ref{C}. \\
+        \Rmk A weaker condition. There exists $\mathcal{V}$ such that $\|\hat f (A)\|_2 \le \|\hat f (A_{\mathcal V})\|_2$. \\
+        \Prf $A_{\mathcal{V}}$ is unitarily similar to an $2\times 2$ matrix, so it satisfies \ref{C}. Also, $W(A_{\mathcal{V}}) \subseteq W(A)$. \QED
+
+        \subitem Let $x$ be the principal right singular vector of $\hat f(A)$. If 
+        \begin{equation}
+            \dim \spn{x, Ax, \dots, A^{n-1}x} \le 2
+            \label{dim_Krylov_le_2}
+        \end{equation}
+        then $A$ satisfies \ref{C}. \\
+        \Prf Let $\mathcal{V}$ be the above Krylov subspace. Since $A(\mathcal{V}) \subseteq \mathcal{V}$, we have $\|\hat f (A)\|_2 = \|\hat f (A)_{|\mathcal{V}} \|_2 = \| \hat f (A_\mathcal{V}) \|_2$. \QED 
+\end{enumerate}
+
+\subsection{Conformal map}
+For analytic $g_A: \C \to \C$ s.t. 
+\[ g_A( W(A) ) = \{ z \mid \|z\|_2 \le 1 \}= \overline{\D} \]
+
+Then for any analytic $f$, exists analytic $h$ s.t. $f = h \circ g_A $. ($g_A$ invertible ? 1-1 ?)
+
+\[ 2 \sup_{z\in W(A)} |f(z)| = 2 \sup_{x\in D} |h(x)| \]
+\[  \]
+
+
+
+Anything special? Rational numbers as conformal map  ?????
+
+
+\section{Invariant subspace}
+\subsection{Lomonosov ????} 
+Let $X$ be a complex Banach space, $T\in B(X)$ be compact, $\Gamma =\{ S\in B(X) \mid ST = TS \}$. Then exists a proper subspace $\{0\} \ne M  \subsetneq X$, s.t. $S(M) \subset M$ for any $S\in \Gamma$.
+
+\subsubsection{Schauderr-Tychonoff fixed point theorem}
+Let $K$ be a compact convex subset of a Hausdorff space $X$. Let $f: K \to K$ be continuous. Then $\exists p\in K$ such that $f(p)=p$.
+
+
+\Prf Suppose not true. $G:=\{ (x, f(x)) \mid x \in K \}$ is compact. Denote the diagonal of $X \times X$ as $\Delta = \{ (x, x) \mid x\in X \}$. 
+
+There exists a convex neighborhood $V$ of $0$, s.t. $(G + V\times V) \cap \Delta = \emptyset$. Also implies $\forall x \in K, f(x) \notin x+V$. 
+
+Define Minkowski functional of V: $\mu_V(x):= \inf \{t>0 \mid t^{-1}x \in V, x\in K\}$. Note that $\mu_V(x) < 1 \Leftrightarrow x\in V$. 
+
+Define $\alpha(x) := \max (0, 1-\mu_V(x))$. Choose $x_1,\dots, x_n$ s.t. $\{x_i+V\}$ covers $K$. Define $\alpha_i(x):= \alpha(x-x_i)$ and $\beta_i(x) := \frac{\alpha_i(x)}{\sum_{i=1}^n \alpha_i(x)}$. 
+
+Define $H := \co \{x_1,\dots,x_n\}$. Define $g(x):=\sum_{i=1}^n \beta_i(x)x_i$. Then $g\circ f : H \subset K \to K \to H$. Since $H$ is finite-dim simplex, by Brouwer's fixed point thm, exists $x^* \in H$ s.t. $g(f(x^*)) = x^*$.
+
+$\beta_i(x)=0 \Leftrightarrow x - x_i \notin V$ implies $\forall x\in K, x-g(x) = \sum_{i=1}^n \beta_i(x)(x-x_i) \in V$. Also true for $x=f(x^*)$, so $f(x^*) - x^* \in V$, contradiction. \QED
+
+\subsection{}
+
+subtopics: relationship between commutants? Albelian?
+
+
+\bibliographystyle{amsplain}
+\bibliography{references}
+
+\end{document}

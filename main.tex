@@ -1,0 +1,560 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{hyperref,xcolor}
+\usepackage{tikz-cd}
+
+\let\O\undefine
+\let\H\undefine
+\let\emptyset\varnothing
+\let\Re\undefine
+\let\Vec\undefine
+\newcommand{\Re}{\mathfrak{R}}
+\newcommand{\Vec}{\mathfrak{V}}
+\newcommand{\ii}{{\ensuremath{\mathrm{i}}}}
+\newcommand{\jj}{{\ensuremath{\mathrm{j}}}}
+\newcommand{\kk}{{\ensuremath{\mathrm{k}}}}
+\newcommand{\h}{{\scriptscriptstyle\mathsf{H}}}
+\newcommand{\tp}{{\scriptscriptstyle\mathsf{T}}}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\U}{U}
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\O}{O}
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\Sp}{Sp}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Cl}{Cl}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\H}{\mathbb{H}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\dom}{\text{dom}}
+
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+
+\title{Math Notes}
+\author{}
+\date{August 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Matrix Decompositions}
+\begin{enumerate}
+    \item CS Decomposition for $X=\begin{bmatrix} X_{11} & X_{12} \\ X_{21} & X_{22} \end{bmatrix} \in \U(n)$ with $X_{11}\in \C^{k\times k}$, $2k \le n$. (Carefully adopted from \cite[Theorem~2.5.3]{golub_matrixcomp_2013}, or \cite[Section~4]{paige_towards_1981}) 
+    \[ X= \diag(U_1, U_2) \begin{bmatrix} C & -S & 0 \\ S & C & 0 \\ 0 & 0 & I_{n-2k} \end{bmatrix} \diag(V_1,V_2)^* \]
+    where $U_1,V_1\in \U(k), U_2,V_2\in \U(n-k),C=\diag(\cos\theta_1,\dots,\cos\theta_k),S=\diag(\sin\theta_1,\dots,\sin\theta_k),\theta_i\in [0,\pi/2]$.
+    \item $T_Q \O(n) = \{QX \in \R^{n\times n}:\ X+X^\tp=0\} = \{XQ \in \R^{n\times n}:\ X+X^\tp=0\}$. Since $XQ = Q\underbrace{ Q^\tp XQ}_{X'}$. Similar structure holds for $\U(n), \U(n,\H)$.
+    \item $T_Q \U(n,\H) = \{ QX \in \H^{n\times n}:\ X + X^*=0 \}$.
+    \item $\dim_\R \U(n,\H)=2n^2+n=\dim_\R \{X\in \H^{n\times n}:\ X+X^*=0\}$.
+    \item Let $Q=\diag(\lambda_1 I_{n_1},\dots, \lambda_r I_{n_r})$, $M(Q)\coloneqq \{OQO^\tp: O\in \O(n)\}$. For $H\in M(Q)$, \[ T_H M(Q) = \{[H,\Omega]: \Omega \in \R^{n\times n}, \ \Omega = -\Omega^\tp\}\] 
+    \cite[Lemma~2.1.3]{Helmke_1994_optim} and its orthogonal complement w.r.t. $\mathsf{S}^2(\R^n)\coloneqq \{X\in \R^{n\times n}: X=X^\tp\}$ is 
+    \[ N_H M(Q) = \{ S \in \mathsf{S}^2(\R^n): [H, S]=0 \}.\] 
+    \item (Haynsworth inertia additivity formula) Let $H=\begin{bmatrix}
+        H_{11} & H_{12} \\ H_{12}^* & H_{22}
+    \end{bmatrix} \in \C^{n\times n}$ be hermitian and its inertia be a triple $\text{In}(H) \coloneqq (\pi(H), \nu(H),\delta(H))$, whose components are the numbers of positive, negative and zero eigenvalues of $H$. Assume $H_{11}$ is nonsingular. Then $\text{In}(H)=\text{In}(H_{11}) + \text{In}(H/H_{11})$, where $H/H_{11}=H_{22}-H_{12}^*H_{11}^{-1}H_{12}$ is the Schur complement.
+\end{enumerate}
+
+\section{Quaternion}
+\subsection{}
+\begin{enumerate}
+    \item $q=a+b\ii +c\jj +d\kk \in \H$, where $\ii \jj = \kk, \ii^2=\jj^2=\kk^2=-1$. 
+    \item Denote $q = q_1 + q_2 \jj$ with $q_1,q_2 \in \C$. Denote $\Re (q) \coloneqq a$, $\Vec (q) \coloneqq q-\Re(q)$. 
+    \item Quaternion conjugate $\overline{q}\coloneqq a - b\ii -c\jj -d\kk = \overline{q_1} -q_2 \jj$. 
+    \item Representation via complex or real numbers. Let $\rho_1: \H \to \C^{2\times 2}$, $\rho_2: \C \to \R^{2\times 2}$, $\rho_3: \H \to \R^{4\times 4}$ be defined as
+    \[ \rho_1 \coloneqq \begin{bmatrix}
+        q_1 & q_2 \\
+        -\overline{q_2} & \overline{q_1}
+    \end{bmatrix},\ \text{where } q_1=a+b\ii,\ q_2=c+d\ii, \]
+    \[ \rho_2(a+b\ii) \coloneqq \begin{bmatrix}
+        a & -b \\ b & a
+    \end{bmatrix}, \]
+    \[ \rho_3(q) \coloneqq \rho_2 \circ \rho_1 (q) = \begin{bmatrix}
+        a & -b & c & -d \\
+        b & a & d & c \\
+        -c & -d & a & b \\
+        d & -c & -b & a
+    \end{bmatrix}. \]
+    \item For $q,q^{(i)}\in \H$,
+    \begin{align*}
+        \rho_1(q^{(1)} q^{(2)}) = \rho_1(q^{(1)}) \rho_1(q^{(2)}), \quad \rho_1 (\overline{q}) = \rho_1(q)^\h ; \\
+        \rho_3(q^{(1)} q^{(2)}) = \rho_3(q^{(1)}) \rho_3(q^{(2)}), \quad \rho_3 (\overline{q}) = \rho_3(q)^\tp.
+    \end{align*}
+\end{enumerate}
+ 
+\subsection{Quaternionic matrices}
+\begin{enumerate}
+    \item For $A \in \H^{n\times n}$, $A=A_1+A_2\jj$ with $A_1, A_2 \in \C^{n\times n}$.
+    
+    Complex representation:
+        \[ \psi(A) \coloneqq \begin{bmatrix}
+        A_1 & A_2 \\ -\overline{A_2} & \overline{A_1}
+    \end{bmatrix} \]
+        \[ A^* \coloneqq A_1^\h - A_2^\tp \jj \]
+    where the operation $A_1^\h$ on $A_1 \in \mathbb{C}^{n\times n}$ just means transpose and complex conjugate.
+        \[ AB = (A_1B_1 - A_2 \overline{B_2}) + (A_1B_2 + A_2 \overline{B_1})\jj \]
+        \[ \ \psi(AB)=\psi(A) \psi(B), \; \psi(A^*)= \psi(A)^\h. \]
+    \item Define $\U(n, \H)\coloneqq \{ X \in \H^{n\times n}: \ XX^\h=I \}$. $\Sp(n)=\Sp(2n, \C) \cap \U(2n)$.
+    Then $\psi$ is a group isomorphism between them.
+    \item Real representation: now change the notation to $A=A_1+A_2\ii+A_3\jj + A_4\kk$ with $A_1,\dots,A_4 \in \R^{n\times n}$, then
+    \[ \varphi(A) \coloneqq \begin{bmatrix}
+        A_1 & -A_2 & A_3 & -A_4 \\
+        A_2 & A_1 & A_4 & A_3 \\
+        -A_3 & -A_4 & A_1 & A_2 \\
+        A_4 & -A_3 & -A_2 & A_1
+    \end{bmatrix} \]
+    \[ \varphi(AB) = \varphi(A) \varphi(B),\ \varphi(A^*) = \varphi(A)^\tp. \]
+    \item (Corollary) For $\alpha, \beta\in \H$, $A,B\in\H^{m\times n}$, \cite[Definition~3.2.1]{rodman_2014_quaternion}
+    \[ (\alpha A +\beta B)^* = A^* \alpha^* + B^* \beta^*,\ (AB)^*=B^* A^*, \ (A^*)^*=A. \]
+\end{enumerate}
+
+
+\subsection{Spectrum, EVD, SVD}
+\begin{enumerate}
+    \item \cite[Chapter~2.2]{rodman_2014_quaternion} Similarity. $\text{Sim}(x) \coloneqq \{y \in \H:\ axa^{-1}=y \text{~for~some~} a\in \H \backslash \{0\} \}$.
+    \item Congruence. $\text{Con}(x) \coloneqq \{y \in \H:\ axa^*=y \text{~for~some~} a\in \H \backslash \{0\} \} = \bigcup_{\lambda >0} \{\lambda \text{Sim}(x)\}$. 
+    \item $\text{Sim}(x)=\Re(x)+|\Vec(x)|\mathbb{S}$, where the unit sphere $\mathbb{S}\coloneqq \{q\in \H: \ \Re(q)=0,\ |q|=1 \}$.
+    \item For $A\in \H^{n\times n}$, $(v,\alpha) \in (\H^n \backslash \{0\})\times \H$ is a right eigenvector/eigenvalue of $A$ if $Av=v\alpha$. Denote the set of all right eigenvalues as the spectrum $\sigma(A)$.
+    \item If $\alpha \in \sigma(A)$, then $\text{Sim}(\alpha) \subseteq \sigma(A)$. ($A(v\lambda)=(v\lambda)(\lambda^{-1} \alpha \lambda)$, $\lambda\neq 0$.)
+    \item \cite[Theorem~5.3.6]{rodman_2014_quaternion} If $A\in \U(n,\H)$, then there exists $U\in \U(n,\H)$, $D=\diag(e^{\ii\theta_1},\dots,e^{\ii\theta_n})$ with $\theta_i\in [0,\pi]$, s.t. $A=UDU^*$. 
+    \item If $A\in \H^{n\times n}$ is hermitian ($A=A^*$), there exists $U\in \U(n,\H)$ s.t. $U^*AU$ is real and diagonal.
+    \item \cite[Proposition~3.2.5]{rodman_2014_quaternion} For $A\in \H^{m\times n}$, there exists SVD $A=U\begin{bmatrix}
+        \diag(a_1,\dots,a_k) & 0 \\ 0 & 0_{(m-k)\times(n-k)}
+    \end{bmatrix}V^*$ with unique singular values $a_1 
+    \ge \dots \ge a_k >0$.
+    \item Because $\H$ is not commutative, we define determinant and trace through complex representations. For $A\in \H^{n\times n}$, $\tr_\C(A) \coloneqq 2 \Re(\sum_{i=1}^n a_{ii})=\tr(\psi(A))$. \cite[Section~5.9]{rodman_2014_quaternion} \cite[Definition~2.1]{Djokovic_2008_quaternion}
+\end{enumerate}
+
+\subsection{}
+\begin{enumerate}
+    \item ($\U(n) \cong \SO(2n) \cap \Sp(2n,\R)$) Let $A=B+\ii C \in \U(n)$. Let $\rho: \U(n) \to \SO(2n)$, $\rho(A) \coloneqq \begin{bmatrix}
+        B & -C \\ C & B
+    \end{bmatrix} = P \diag(A, \overline{A})P^{-1}$, where $P=\begin{bmatrix}
+        I & I \\ -\ii I & \ii I
+    \end{bmatrix}$. $\rho$ is a group isomorphism.
+\end{enumerate}
+
+\section{Symplectic Matrix}
+
+\begin{enumerate}
+    \item Let $A=\begin{bmatrix}
+        A_{11} & A_{12} \\ A_{21} & A_{22}
+    \end{bmatrix}$.
+    \item $A \in \C^{2n\times 2n}$ is called Hamiltonian if $J^{-1}A^\tp J=-A$ (equivalently, $(JA)^\tp=JA$). Then $A_1=-A_4^\tp$, and $A_2,A_3$ are symmetric. 
+    \item Skew-Hamiltonian if $J^{-1}A^\tp J=A$. Then $A_1=A_4^\tp$, and $A_2,A_3$ are skew-symmetric. 
+    \item \cite[Proposition~1]{dR15} $A\in \Sp(2n, \C)$ if and only if $A^\tp J A = J$, or $JA^{-1}=A^\tp J$. Then $A_{11} A_{22}^\tp - A_{12} A_{21}^\tp = I$, $A_{11} A_{12}^\tp$ and $A_{21} A_{22}^\tp$ symmetric. 
+    \item If $A \in \Sp(2n,\C)$, so is $A^{-1}, A^\tp, \overline{A}, A^*$.
+    \item \cite[Lemma~3]{dR15} (double-cited) Let $A,B$ be symplectic. Then $A,B$ are similar if and only if they are symplectically similar.
+    \item Denote expanding sum: $A \boxplus B=\begin{bmatrix}
+        A_{11} \oplus B_{11} & ... \\ ... & A_{22} \oplus B_{22}
+    \end{bmatrix}$.
+    \item \cite[Lemma~5]{dR15} Each symplectic matrix is symplectically similar to the expanding sum of matrices of the form:
+    \[ J_k(\lambda) \oplus J_{k}(\lambda)^{-\tp} (\lambda \neq 0,\pm 1),\; J_{2k-1}(\varepsilon) \oplus J_{2k-1}(\varepsilon)^{-\tp} (\varepsilon=\pm 1),\; \pm F_{2k} = \pm \begin{bmatrix}
+        J_k(1) & \begin{bmatrix} 0_{k-1,k} \\ u \end{bmatrix} \\
+        0 & J_k(1)^{-\tp}
+    \end{bmatrix}  \]
+    where $u=[(-1)^{k-1},(-1)^{k-2},\dots,1]$.
+    \item (Williamson’s Thm) Let $M\in \R^{2n\times 2n}$ be a strictly positive definite real symmetric matrix. Then there exists $S \in \Sp(n,\R)$ and a positive diagonal $D$ such that $SMS^\tp = \diag(D, D)$. For generalization to positive semi-definite matrices and real symmetric matrices, see \cite{mishra2024williamson}.
+    \item (Compact symplectic group) As $\C^{2n\times 2n}$ block matrices:
+    \begin{align*}
+    \Sp(n) &= \Biggl\{ \begin{bmatrix}
+        A & B \\ -\overline{B} & \overline{A}
+    \end{bmatrix}:  A,B \in \C^{n\times n}, \; AA^\h +BB^\h =I_n,\; AB^\tp = BA^\tp  \Biggr\} , \\
+    \Sp(n) &= \Biggl\{ Q \begin{bmatrix}
+        D & \\ & \overline{D}
+    \end{bmatrix} Q^\h:  Q \in \Sp(n),\; D = \diag(e^{\ii\theta_1},\dots,e^{\ii \theta_n}),\; \theta_i \in [0, 2\pi) \Biggr\}. 
+    \end{align*}
+    \[ \mathfrak{sp}(n) \coloneqq \Biggl\{ \begin{bmatrix}
+        A & B \\ -\overline{B} & \overline{A}
+    \end{bmatrix}: A=-A^\h,\; B=B^\tp \Biggr\} \]
+\end{enumerate}
+
+\section{Algebra}
+\begin{enumerate}
+    \item (Algebra) An algebra $A$ over field $K$ is a vector space with an additional product operation $\cdot: A \times A \to A$, such that the following holds for all $x,y,z\in A$, $a,b\in K$:
+        \begin{enumerate}
+            \item Right distributivity: $(x+y)\cdot z = x\cdot z + y\cdot z$
+            \item Left distributivity: $z \cdot (x+y) = z\cdot x + z\cdot y$
+            \item Compatibility with scalars: $(ax) \cdot (by)= (ab) (x\cdot y)$
+        \end{enumerate}
+    \item (Unital, Zero)
+\end{enumerate}
+
+\subsection{Clifford algebra}
+\begin{enumerate}
+    \item Let $V$ be a vector space, $K$ be a field. Let $Q: V \to K$ be a quadratic form.
+    \item Tensor algebra $T(V) \coloneqq \bigoplus_{d=0}^\infty V^{\otimes d} $. The two-sided ideal 
+    \[ I_Q = \langle v^2 - Q(v)1 \rangle \coloneqq \{ a(v^2 - Q(v)1)b: a, b\in T(V) \}.\]
+    The Clifford algebra is $\operatorname{Cl}(V, Q) \coloneq
+     T(V) / I_Q$.
+     \item $K$-bilinear form associated with $Q$ is $B(u, v) \coloneq \frac{1}{2}(Q(u+v)-Q(u)-Q(v))$. So $uv+vu=2B(u,v)1$ \footnote{Assume $2$ is invertible in $K$.}, 
+     and $Q(v)=B(v,v)$.
+     \item (Abstract definition) A Clifford algebra $\Cl(V,Q)$ is a pair $(B, i)$, where $B$ is a unital associative algebra of $K$ and $i$ is a linear map $i:V \to B$ such that $i(v)^2=Q(v) 1_B$. \\
+     (Universal property) Given any unital associative algebra $A$ over $K$ and linear map $j:V\to A$ such that $j(v)^2=Q(v)1_A$, there is a unique algebra homomorphism $f:B\to A$ such that $f\circ i=j$. The commutative diagram:
+     \[
+    \begin{tikzcd}
+    V \arrow[r, "i"] \arrow[dr, "j"'] 
+      & \Cl(V,Q) \arrow[d, dashed, "f"] \\
+      & A
+    \end{tikzcd}
+    \]
+    \item (Classification of Clifford algebra with $K=\R$ or $\C$)
+    \item \url{https://math.stackexchange.com/questions/4925361/clifford-algebra-for-hermitian-forms} \\
+    \url{https://math.stackexchange.com/questions/4653580/are-there-unitary-clifford-alegbras-in-analogy-with-orthogonal-and-symplectic/4653718#4653718}
+\end{enumerate}
+\subsection{CAR algebra}
+\subsection{Weyl algebra}
+\subsection{*-algebra}
+\begin{enumerate}
+    \item (*-ring) $R$ is a ring with an antiautomorphism/involution map $*: R \to R$ such that for all $x,y\in R$,
+        \begin{enumerate}
+            \item $(x+y)^*=x^*+y^*$, $(xy)^*=y^* x^*$
+            \item $1^*=1$, $(x^*)^*=x$
+        \end{enumerate}
+    \item (*-algebra) $A$ is a *-algebra, if $A$ is an associative algebra and is a *-ring with involution $*$ over a commutative *-ring $R$ with involution $'$, such that for all $r\in R,x\in A$, $(rx)^*=r' x^*$. \\
+    Since $A$ is *-ring, we have for $x,y\in A$, $\lambda,\mu\in R$
+        \begin{enumerate}
+            \item $x^{**}=x$, $(xy)^*=y^* x^*$
+            \item $(\lambda x+\mu y)^*=\lambda' x^* + \mu' y^*$
+        \end{enumerate}
+    \item (*-homomorphism) an algebra homomorphism $f:A\to B$ that is also compatible with the involutions of $A, B$, i.e., $f(a^*)=f(a)^*$ for all $a\in A$. \\
+    (Example) $B=\R^{2n\times 2n}$ with $*$ being transpose over base ring $R_B=\R$ with trivial identical involution $r'=r$. $A=\C^{n\times n}$ with $*$ being conjugate transpose over base ring $R_A=\C$. The embedding $f$ of $\C^{n\times n}$ into $\R^{2n\times 2n}$ is a *-homomorphism. 
+    \item (Banach algebra) is an associative algebra $A$ over $\R$ or $\C$ and is a Banach space with norm satisfying $\|xy\| \le \|x\| \|y\| $ fo all $x,y\in A$.
+    \item (C*-algebra) $A$ is a Banach and *-algebra over $\C$, with the C* identity $\|xx^*\|=\|x\|^2$ for all $x\in A$. \\
+    (Example) $A=\C^{n\times n}$ with operator norm $\|\cdot\|_2$.
+\end{enumerate}
+
+\section{Optimization}
+\subsection{}
+Let $f: \R^n \to \R \cup \{+\infty\}$ be a proper lower-semicontinuous function.
+\begin{enumerate}
+    \item Define $\dom f\coloneqq \{x\in \R^n: \ f(x)<+\infty\}$.
+    \item For $x\in \dom f$, the Frechet subdifferential of $f$ at $x$ is 
+    \[ \hat{\partial} f(x) \coloneqq \{g \in \R^n:\ \lim \underset{y\ne x, y\to x}{\inf} \frac{1}{\|x-y\| } (f(y) - f(x) - < g, y-x> \}   \]
+\end{enumerate}
+
+\section{Topology}
+\begin{enumerate}
+    \item Let $(X,\tau)$ be a topological space. $\tau$ is a family of subsets of $X$ that satisfies
+        \begin{enumerate}
+            \item $\varnothing \in \tau$, $X\in \tau$.
+            \item If $S_\alpha \in \tau$, then $\bigcup_{\alpha \in A} S_\alpha \in \tau $, where $A$ may be any index set (finite, countable, or uncountable).
+            \item If $S_i \in \tau$ and $\mathbb{N} \ni n < \infty$, then $\bigcap_{i=1}^n S_i \in \tau$.
+        \end{enumerate}
+        If $S \in \tau$, then $S$ is called an open set.
+    \item (Subspace topology) Given $S \subseteq X$, define $\tau_S \coloneqq \{S \cap U: U\in \tau\}$.
+    \item (Cover) The collection $\{U_\alpha: \alpha\in A\}$ is a cover of $X$ if $\underset{\alpha\in A}{\bigcup} U_\alpha=X$.
+    \item (Refinement) Let $C=\{U_\alpha\}_{\alpha\in A}, D=\{V_\beta\}_{\beta\in B}$ be two covers of $X$. $D$ is a refinement of $C$ if for all $\beta\in B$ there exists $\alpha\in A$ such that $V_\beta \subseteq U_\alpha$.
+    \item (Locally finite) A collection of subsets $\{U_\alpha\}_{\alpha\in A}$ is locally finite if each $x\in X$ has a neighborhood $N_x$ that only intersects finitely many sets in the collection.
+    \item (Paracompact) 
+\end{enumerate}
+\subsection{}
+\begin{enumerate}
+    \item (Connected, path-connected, simply connected) $X$ is connected if it cannot be divided into two disjoint non-empty open sets. $X$ is path-connected if every $x,y\in X$ can be connected by a path. $X$ is simply connected if it is path-connected and any two paths with same endpoints are homotopic to each other.
+    \begin{enumerate}
+        \item $\text{connected} \Rightarrow \text{path-connected} \Rightarrow \text{simply connected}$
+        \item Connected but not path-connected: the topologist's sine curve $T \coloneqq \{ (x, \sin(1/x)): x\in (0,1] \} \cup \{(0,0)\}$ under the topology of the Euclidean plane.
+        \item 
+    \end{enumerate}
+    \item (Homotopy) Let $f,g: X \to Y$ be continuous. A homotopy between $f$ and $g$ is a continuous function $H:X \times [0,1] \to Y$ such that $H(x,0)=f(x)$ and $H(x,1)=g(x)$. 
+    \item (fundamental group) A loop based at $x_0$ is a continuous function $\gamma: [0,1]\to X$ such that $\gamma(0)=\gamma(1)=x_0$. The fundamental group of the topological space $X$ is
+    \[ \pi_1(X, x_0) \coloneqq \{ \text{all~loops~$\gamma$~based at $x_0$} \} / \text{homotopy}. \]
+    \begin{enumerate}
+        \item Given two loops $\gamma_0, \gamma_1$, 
+        \( (\gamma_0 \cdot \gamma_1)(t) = \begin{cases}
+            \gamma_0(2t) & 0 \le t \le \frac{1}{2}, \\
+            \gamma_1(2t-1) & \frac{1}{2} < t \le 1.
+        \end{cases}  \) (in the sense of equivalent classes, $[\gamma_0] \cdot [\gamma_1]=[\gamma_0 \cdot \gamma_1]$). $\gamma^{-1}(t)=\gamma(1-t)$. The identity element is the constant loop $e(t)=x_0$.
+        \item If $X$ is path-connected, $\pi_1(X,x_0)$ doesn't depend on $x_0$.
+    \end{enumerate}
+\end{enumerate}
+\subsection{}
+\begin{enumerate}
+    \item (Local homeomorphism) A function $f: X\to Y$ between two topological spaces is called a local homeomorphism if every $x\in X$ has a open neighborhood $U$, such that $f(U)$ is open in $Y$ and $f|_U: U \to f(U)$ is a homeomorphism.
+    \item Topological spaces $X, Y$ have \underline{same homotopy type} if there exist $f: X\to Y$ and $g: Y \to X$ such that $f\circ g \simeq \operatorname{id}_Y$ and $g \circ f \simeq \operatorname{id}_Y$, where $\simeq$ stands for homotopy equivalence. Homeomorphism $\Rightarrow$ of same homotopy type.
+    \item (Covering projection) A covering of $X$ is a continuous map 
+    \[ \pi: \tilde{X} \to X\] 
+    such that for every $x\in X$ there exists an open neighborhood $U_x$ of $x$ and a discrete space $D_x$ such that $\pi^{-1}(U_x)$ is the disjoint union $\bigcup_{d\in D_x} V_d$ and 
+    \[ \pi|_{V_d}: V_d \to U_x \]
+    is a homeomorphism for every $d\in D_x$. The open sets $V_d$ are called sheets. $\pi^{-1}(x)$ is called the fiber of $x$.
+\end{enumerate}
+
+\section{Manifold}
+\begin{enumerate}
+    \item A chart for a topological space $M$ is a homeomorphism $\varphi$ from an open subset $U \subseteq M$ to an open subset of a Euclidean space. 
+    \item An atlas for $M$ is an indexed family $\{(U_\alpha, \varphi_\alpha):\ \alpha\in I\}$ of charts on $M$ s.t. $\bigcup_{\alpha \in I} U_\alpha=M$.
+    \item If each $U_\alpha$ is an open subset of $n$-dimensional Euclidean space, then $M$ is said to be an $n$-dimensional manifold.
+    \item Transition maps. Let $(U_\alpha, \varphi_\alpha)$ and $(U_\beta, \varphi_\beta)$ are two charts for $M$ s.t. $U_\alpha \cap U_\beta \neq \emptyset$. The transition map $\tau_{\alpha,\beta}: \varphi_\alpha(U_\alpha \cap U_\beta) \to \varphi_\beta (U_\alpha \cap U_\beta)$ is defined as $\tau_{\alpha,\beta} \coloneqq \varphi_\beta \circ \varphi_\alpha^{-1}$.
+    \item (Tangent space $T_x M$ defined through equivalent classes of curves.) For $x\in M$ and a smooth curve $\alpha: I \to M$ with $I\subseteq \R$, $\alpha(0)=x$. Let $(U,\phi)$ be a chart of $M$ with $x\in U$. Then $\phi \circ \alpha: I \to \phi(U) \subseteq\R^n$ is a smooth map and $(\phi \alpha)'(0)$ is its velocity at $0$ w.r.t. the current chart. We say two curves through $x$ are equivalent, i.e. $\alpha \sim_x \beta$, if $(\phi\alpha)'(0)=(\phi\beta)'(0)$ (Can prove this relation is chart-independent.) Then each equivalent class $[\alpha]_x$ is an element in $T_xM$. \cite[Definition~C.5.1]{Helmke_1994_optim}
+    
+    Given the chart $(U,\phi)$, $\tau^\phi_x: T_x M \to \R^n$, $\tau^\phi_x([\alpha]_x)=(\phi\alpha)'(0)$ is an isomorphism between two vector spaces.
+    \item (Submanifold) Let $M$ be a $n$-dimensional smooth manifold and $A \subseteq M$. If every $a\in A$ possesses a chart $(U, \phi)$ s.t. $a \in U$ and $\phi(A \cap U) = \phi(U) \cap (\R^k \times \{0\})$ for some $k$, then $A$ is a smooth submanifold of $M$. 
+    \item (Pullback) Let $f:M \to N$ be smooth, and let $\omega$ be a smooth $k$-form on $N$. Then there is a differentialn form $f^* \omega$ on $M$ called the pullback of $\omega$. For $p\in M$ and $v_1,\dots,v_k \in T_p M$, 
+    \[ (f^* \omega)_p (v_1,\dots,v_k) =\omega_{f(p)} (df_p(v_1),\dots, df_p(v_k)). \]
+    \item (Immersion, Embedding, Submersion) If $T_p f: T_p M \to T_{f(p)}N$ is injective for all $p\in M$, then $f$ is called an immersion. If $f$ is an immersion and $f:M \to f(M) \subseteq N$ is a homeomorphism, then $f$ is called an embedding. If $T_p f$ is surjective for all $p\in M$, then $f$ is called a submersion.
+\end{enumerate}
+\subsection{Lie theory}
+\begin{enumerate}
+    \item $G$ is a Lie group if it is a group and a smooth manifold s.t. $G\times G \to G$, $(x,y) \mapsto xy^{-1}$ is a smooth map. The Lie algebra of $G$ is $\mathfrak{g}\coloneqq T_e G$.
+    \item (Action) A Lie group action of $G$ on a smooth manifold $M$ is a smooth map \[\sigma: G\times M \to M, \ (g,x) \mapsto g\cdot x\]
+    satisfying $\forall g,h\in G, \forall x\in M$, $g\cdot(h\cdot x) = (gh) \cdot x, e\cdot x=x$. The group action $\sigma$ is called transitive if for any $x,y\in M$ there exists $g\in G$ s.t. $y=g\cdot x$. $M$ is called homogeneous if there exists a transitive $G$-action on $M$.
+    \item Each orbit of the group action is one equivalent class. The orbit $\mathcal{O}(x) \coloneqq \{g\cdot x: g\in G\}$. If $G$ is a compact Lie group, $\mathcal{O}(x)$ is a smooth, compact submanifold of $M$. $M/G \coloneqq \{ \mathcal{O}(x): x\in M \}$. \cite[Section~2.1]{Helmke_1994_optim}
+    \item The stabilizer $\text{Stab}(x)\coloneqq \{g \in G: \ g\cdot x=x\}$. For a subgroup $H \le G$, the set of coset classes $G/H\coloneqq\{g\cdot H: g\in G\}$. \cite[Section~2.1]{Helmke_1994_optim}
+    \item For fixed $x\in M$, $\overline{\sigma}_x: G/\text{Stab}(x) \to \mathcal{O}(x), \ g \text{Stab}(x) \mapsto g\cdot x$ is a smooth bijection. (The orbit-stabilizer Thm naturally follows.) $\overline{\sigma}_x$ is a diffeomorphism if $G$ is a compact Lie group. \cite[Section~2.1]{Helmke_1994_optim}
+\end{enumerate}
+\subsection{Morse theory}
+\begin{enumerate}
+    \item (Morse Lemma) Let $p$ be a non-degenerate critical point (Hessian non-singular) of $f: M \to \R$. Then there exists a chart $(x_1,\dots,x_n)$ in a neighborhood $U$ of $p$ s.t. $x_i(p)=0$ for all $i$ and $f(x)=f(p)-\sum_{i=1}^\gamma x_i^2 + \sum_{i=\gamma+1}^n x_i^2$ on $U$. Here $\gamma$ is the index of $f$ at $p$.
+    \item Non-degenerate critical points are isolated.
+    \item $f:M\to \R$ is called a Morse function if it is smooth and has no degenerate critical points.
+    \item $f: M 
+    \to \R$ is called a Morse-Bott function if it is smooth and the set $C$ of critical points is a closed submanifolds of $M$, such that for all $x\in C$, $T_x C = \ker ( H_f(x) )$. (The Hessian is non-singular when restricted to directions normal to the submanifold $C$.) 
+    \item $\{ \text{Morse functions} \} \subsetneq \{ \text{Morse-Bott functions} \}$. Isolated critical points are 0-dimensional submanifolds.
+    \item (Morse-Bott Lemma) Generalize the Morse Lemma. $f(x) = f(p) - \sum_{i=1}^{n^-} x_i^2 + \sum_{i=n^-+1}^{n^-+n^+} x_i^2$ on $U$, where $n^0 \coloneqq n-n^- - n^+ = \dim C$.
+\end{enumerate}
+
+\subsection{}
+\begin{enumerate}
+    \item Let $M, N$ be differentiable manifolds of dimension $m$ and $n$ respectively. Let $f: M \to N$ be smooth. The differential is $Df: TM \to TN$. 
+    \item (Sard's Thm) Let $X \coloneqq \{x \in N :\ \rank(Df_x) < n \}$ be the set of critical points. Then the set of critical values $f(X)$ has measure zero in $N$.
+    \item (Constant rank Thm) If $\rank(Df) \equiv r$ in a neighborhood of $x\in M$, then locally there exist coordinate charts $\varphi, \psi$ such that $(\psi \circ f \circ \varphi)(u_1,\dots,u_m) = (u_1,\dots,u_r,\underbrace{0,\dots,0}_{n-r})$.
+    \item (Corollary) If $\rank(Df_x) < n$ for all $x\in M$, then $f$ is non-surjective.
+\end{enumerate}
+
+\subsection{}
+Stick to \cite{absil_2008_optimization}.
+\begin{enumerate}
+    \item (Affine connection, \cite[Section~5.2]{absil_2008_optimization}) Let $\mathfrak{X}(M)$ denote the set of smooth vector fields on manifold $M$, $\mathfrak{F}(M)$ the set of smooth, real-valued functions on $M$. 
+    
+    Let $f,g \in \mathfrak{F}(M)$ be functions and $\eta, \chi, \xi, \zeta \in \mathfrak{X}(M)$ be vector fields. An affine connection on $M$ is a mapping
+    \[ \nabla: \mathfrak{X}(M) \times \mathfrak{X}(M) \to \mathfrak{X}(M),\quad (\eta, \xi) \overset{\nabla}{\to} \nabla_\eta \xi \]
+    and satisfies
+        \begin{enumerate}
+            \item $\mathfrak{F}(M)$-linearity in $\eta$: $\nabla_{f\eta + g \chi} \xi = f \nabla_\eta \xi + g \nabla_\chi \xi$,
+            \item $\R$-linearity in $\xi$: $\nabla_\eta (a\xi + b\zeta) = a \nabla_\eta \xi + b \nabla_\eta \zeta$,
+            \item Product rule: $\nabla_\eta (f \xi) = (\eta f) \xi + f \nabla_\eta \xi$.
+        \end{enumerate}
+        Note that for $\eta,\xi \in \mathfrak{X}(M), f \in \mathfrak{F}(M)$, we have $\eta f \in \mathfrak{F}(M)$ (directional derivative of $f$ along $\eta$), and $f \xi \in \mathfrak{X}(M)$ (scalar-vector product) \cite[Section~3.5.4]{absil_2008_optimization}.
+    \item On an arbitrary (second-countable Hausdorff) manifold, there are infinitely many affine connections.
+    \item All possible affine connections of the Euclidean space $\R^n$ are characterized by $n^3$ real-valued functions $\Gamma^k_{ij}$ on $\R^n$, a.k.a. Christoffel symbols.
+    \item (Levi-Civita connection, \cite[Theorem~5.3.1]{absil_2008_optimization}) On a Riemannian manifold $M$, there exists a unique affine connection $\nabla$ that satisfies
+        \begin{enumerate}
+            \item $\nabla_{\eta}\xi - \nabla_{\xi}\eta = [\eta,\xi]$ (symmetry),
+            \item $\chi\langle \eta,\xi\rangle
+                = \langle \nabla_{\chi}\eta,\xi\rangle + \langle \eta,\nabla_{\chi}\xi\rangle$ (compatibility with the Riemannian metric),
+        \end{enumerate}
+        for all $\chi,\eta,\xi \in \mathfrak{X}(M)$.
+    \item \red{Curvature tensor, Sectional curvature}
+\end{enumerate}
+
+\section{Group Theory}
+\begin{enumerate}
+    \item A Lie algebra is called \underline{simple} if it is non-abelian and doesn't have any non-zero proper ideals. A Lie algebra is called \underline{semisimple} if it is a direct sum of simple Lie algebras.
+    \item For $g,h\in G$, $\text{Ad}_g(h) \coloneqq ghg^{-1}$. For $x,y\in \mathfrak{g}$, $\text{Ad}_g(x) \coloneqq \frac{d}{dt}|_{t=0} (g \exp(tx)g^{-1})$ and $\text{Ad}_g[x,y]=[]$
+\end{enumerate}
+\subsection{Cartan subalgebra}
+\begin{enumerate}
+    \item Let $\mathfrak{g}$ be a Lie algebra. Say $\mathfrak{g}$ is nilpotent if $\mathfrak{g}_n=0$ for some $n\in \mathbb{N}$, where $\mathfrak{g}_0 \coloneqq \mathfrak{g}$ and $\mathfrak{g}_n = [\mathfrak{g}, \mathfrak{g}_{n-1}]$. (Equivalently, $\text{ad}_{X_1}\circ \dots \circ \text{ad}_{X_n} (Y) =0$ for any $X_1,\dots,X_n,Y\in \mathfrak{g}$.)
+    \item (En)
+\end{enumerate}
+\subsection{}
+\begin{enumerate}
+    \item Killing form. Let $\mathfrak{g}$ be a finite-dim Lie algebra over field $K$ with characteristic $0$. For $x,y
+    \in \mathfrak{g}$, define the adjoint endomorphism $\text{ad}_x(y) = [x,y]$. The Killing form on $\mathfrak{g}$ is $B(x,y) \coloneqq \tr\big( \text{ad}_x \circ \text{ad}_y \big)$.
+        \begin{enumerate}
+            \item $B(\cdot,\cdot)$ is bilinear and symmetric.
+            \item $B([x,y],z)=B(x,[y,z])$. (Hint: $\text{ad}: \mathfrak{g} \to \text{End}(\mathfrak{g})$ is a Lie algebra homomorphism. \cite[Proposition~3.8]{Hall_2015_lie})
+            \item If $\phi:\mathfrak{g} \to \mathfrak{g}$ is a Lie algebra automorphism, then $B(\phi(x),\phi(y))=B(x,y)$. (Hint: $\text{ad}_{\phi(x)}=\phi \circ \text{ad}_x \circ \phi^{-1}$.)
+            \item $\mathfrak{g}$ is semisimple iff $B(\cdot,\cdot)$ is non-degenerate.
+        \end{enumerate}
+    \item Homogeneous space. Let $G$ be a Lie group acting smoothly and transitively on a manifold $M$. Given $o\in M$, let $K \coloneqq \{g \in G: g\cdot o=o\}$ be the stabilizer. Then $M$ is diffeomorphic to $G/K$.
+        \begin{enumerate}
+            \item Let $K_o$, $K_t$ be the stabilizers of $o,t$. Then $K_t = g K_o g^{-1}$ where $t=g\cdot o$. (Different stabilizers are conjugate to each other.)
+            \item $\Phi: M \to G/K$, $g \cdot o \mapsto gK$.
+            \item (Ex.) $G=\SO(n)$, $K=\SO(n-1)$, $G/K \cong \mathrm{S}^{n-1}$, the unit sphere in $\R^n$.
+        \end{enumerate}
+    \item Symmetric space. A homogeneous space $G/K$ is symmetric if there exists an involutive automorphism (Cartan involution) $\theta: G\to G$, $\theta^2=\mathrm{id}$ s.t. $K = \{g \in G: \theta(g)=g\}$. 
+        \begin{enumerate}
+            \item $d\theta: \mathfrak{g} \to \mathfrak{g}$, $(d\theta)^2=\mathrm{id}$ is also an involution.
+            \item Cartan decomposition. $\mathfrak{g}=\mathfrak{k} \oplus \mathfrak{p}$, where $\mathfrak{k} = \text{Lie}(K)$ and the $+1$-eigenspace of $d\theta$, $\mathfrak{p}$ is the $-1$-eigenspace. $[\mathfrak{k},\mathfrak{k}]\subseteq \mathfrak{k}$, $[\mathfrak{k},\mathfrak{p}]\subseteq \mathfrak{p}$, $[\mathfrak{p},\mathfrak{p}] \subseteq\mathfrak{k}$. (Hint: $d\theta$ is a Lie algebra automorphism \cite[Theorem~3.28]{Hall_2015_lie}, so $d\theta([X,Y])=[d\theta(X),d\theta(Y)]$ for $X,Y\in\mathfrak{g}$.)
+            \item Let \red{Killing form, compact/noncompact?}, 
+        \end{enumerate}
+\end{enumerate}
+\subsection{Weyl Group}
+\begin{enumerate}
+    \item Let $E$ be a finite-dim Euclidean vector space, with standard inner product $(\cdot,\cdot)$. Define the reflection about the hyperplane perpendicular to $\alpha$ as $\sigma_\alpha(v) \coloneqq v - 2\frac{(\alpha,v)}{(\alpha,\alpha)}\alpha$. A root system $\Phi$ in $E$ is a finite set of non-zero vectors (roots) that satisfy:
+        \begin{enumerate}
+            \item $\Phi$ span $E$.
+            \item The only scalar multiples of a root $\alpha\in \Phi$ that is also in $\Phi$ are $\alpha, -\alpha$.
+            \item For any $\alpha,\beta\in \Phi$, $\sigma_\alpha(\beta) \in \Phi$. ($\Phi$ is closed under reflection through the hyperplane perpendicular to $\alpha$.)
+            \item (Integrality) For any $\alpha,\beta\in \Phi$, $2 \frac{(\alpha,\beta)}{(\alpha,\alpha)} \in \mathbb{Z}$.
+        \end{enumerate}
+    \item Given a root system $\Phi$, we can always choose (in many ways) $\Phi^+ \subseteq \Phi$ (called positive roots) s.t. 
+        \begin{enumerate}
+            \item For each $\alpha \in \Phi$, exactly one of $\alpha,-\alpha$ is in $\Phi^+$.
+            \item For two distinct $\alpha,\beta \in \Phi^+$, if $\alpha+\beta \in \Phi$, then $\alpha+\beta \in \Phi^+$.
+        \end{enumerate}
+        After choosing $\Phi^+$, $-\Phi^+$ is called negative roots.
+    \item Simple roots $\Delta \subseteq \Phi^+$. Each element of $\Delta$ cannot be written as the sum of two elements of $\Phi^+$. Properties of $\Delta$:
+        \begin{enumerate}
+            \item For every $\alpha \in \Phi$, we can write $\alpha=\sum_i c_i v_i$ with $v_i \in \Delta$, $c_i \in \mathbb{Z}$.
+            \item The coefficients $c_i$ are either all non-negative or all non-positive.
+        \end{enumerate}
+    \item The Weyl group of $\Phi$ is the group of transformations of $E$ generated by all the reflections $\{\sigma_\alpha: \alpha \in \Phi\}$. It is a subgroup of the isometry group on $\Phi$.
+    
+    The hyperplanes intersect $E$ into disconnected components. Each component is called a Weyl chamber.
+    \item Let $K$ be a connected compact Lie group and let $T$ be a maximal torus in $K$. Define the normalizer and centralizer
+    \[ N(T) \coloneq \{ x\in K: xtx^{-1} \in T, \forall t\in T \}, \quad Z(T)\coloneq \{ x\in K: xtx^{-1}=t, \forall t\in T \}. \]
+    The Weyl group of $K$ (relative to $T$) is $W=N(T)/Z(T)$.
+\end{enumerate}
+\subsection{General}
+\begin{enumerate}
+    \item Isometry group of a metric space $V$ is the set of all bijective isometries (distance-preserving maps) from $V$ to itself.
+    \item (Torus) A torus $T$ in a compact Lie group $G$ is a compact, connected, abelian Lie subgroup of $G$.
+\end{enumerate}
+
+
+\section{Quantum Information}
+
+\subsection{Pure v.s. Mixed States}
+
+\begin{enumerate}
+    \item A \underline{density matrix} (quantum state) on a finite-dimensional Hilbert space $\mathcal{H}$ is a matrix
+    $\rho: \mathcal{H} \to \mathcal{H}$, $\rho \succeq 0$, $\tr(\rho)=1$.
+    \item A state $\rho$ is called \underline{pure} if
+    $\rho = |\psi\rangle\langle\psi|$ for some unit vector $|\psi\rangle\in\mathcal{H}$. Equivalently,
+    $\rank(\rho)=1$.
+
+    \item A state is called \underline{mixed} if it is not pure. Equivalently, $\rank(\rho)>1$.
+    Every mixed state can be written as a convex combination of pure states:
+    \[
+        \rho
+        =
+        \sum_{i=1}^r
+        p_i |\psi_i\rangle\langle\psi_i|,
+        \qquad
+        p_i\geq 0,
+        \qquad
+        \sum_{i=1}^r p_i=1.
+    \]
+    Such a decomposition is generally not unique. One choice can be given by the spectral theorem
+    \[
+        \rho
+        =
+        \sum_{i=1}^{\rank(\rho)}
+        \lambda_i
+        |u_i\rangle\langle u_i|,
+    \]
+    where $\lambda_i>0$, $\sum_i \lambda_i=1$, and $\{u_i\}\subseteq \mathcal{H}$ are orthonormal.
+\end{enumerate}
+
+\subsection{Separable v.s. Entangled States}
+
+\begin{enumerate}
+    \item Suppose the Hilbert space has a tensor-product decomposition
+    $\mathcal{H}=\mathcal{H}_A\otimes\mathcal{H}_B$.
+    Entanglement is defined relative to this choice of subsystems.
+
+    \item A state $\rho$ on $\mathcal{H}_A\otimes\mathcal{H}_B$ is called
+    \underline{separable} if it can be written as
+    \[
+        \rho
+        =
+        \sum_{i=1}^r
+        p_i\,\rho_i^A\otimes\rho_i^B,
+        \qquad
+        p_i\geq 0,
+        \qquad
+        \sum_{i=1}^r p_i=1,
+    \]
+    where $\rho_i^A$ and $\rho_i^B$ are density matrices on
+    $\mathcal{H}_A$ and $\mathcal{H}_B$, respectively.
+    If no such decomposition exists, $\rho$ is called \underline{entangled}. \footnote{Here $\rank(\rho_i^A\otimes\rho_i^B)=\rank(\rho_i^A) \rank(\rho_i^B)\ge 1$, so $r \ge \rank(\rho)$.}
+    
+    \item For a pure state $\rho=|\psi\rangle\langle\psi|$,
+    separability is equivalent to the existence of
+    $|\psi_A\rangle\in\mathcal{H}_A$ and
+    $|\psi_B\rangle\in\mathcal{H}_B$ such that $|\psi\rangle = |\psi_A\rangle\otimes|\psi_B\rangle$.
+
+    \item (Schmidt decomposition.) Every pure state $|\psi\rangle\in \mathcal{H}$ can be written as
+    \[
+        |\psi\rangle
+        =
+        \sum_{i=1}^r
+        \sigma_i
+        |u_i\rangle\otimes|v_i\rangle,
+        \qquad
+        \sigma_i>0,
+        \qquad
+        \sum_{i=1}^r \sigma_i^2=1,
+    \]
+    where $\{u_i\}$ and $\{v_i\}$ are orthonormal sets of $\mathcal{H}_A$ and $\mathcal{H}_B$, respectively. The number $r$ is called the
+    \underline{Schmidt rank} of $|\psi\rangle$. 
+    \[
+        |\psi\rangle \text{ is separable}
+        \iff
+        r=1.
+    \]
+    \item (Ex.) Pure/mixed and separable/entangled are independent concepts. Consider $\mathcal{H}_A =\mathcal{H}_B= \C^2$, $\mathcal{H} = \C^2 \otimes \C^2\cong \C^4$. 
+    \begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{c|c|c}
+ & \textbf{Separable} & \textbf{Entangled} \\
+\hline
+\textbf{Pure}
+&
+\begin{tabular}{c}
+\(
+ |\psi \rangle=|00\rangle
+\) \\
+also called product state
+\end{tabular}
+&
+\begin{tabular}{c}
+\(
+|\Phi^+\rangle=\dfrac{|00\rangle+|11\rangle}{\sqrt2}
+\) \\
+The Bell state
+\end{tabular}
+\\
+\hline
+\textbf{Mixed}
+&
+\begin{tabular}{c}
+\(
+\rho
+=
+\dfrac12|00\rangle\langle00|
++
+\dfrac12|11\rangle\langle11|
+\) \\
+convex combination of product states
+\end{tabular}
+&
+\begin{tabular}{c}
+\(
+\rho_W
+=
+\dfrac12 |\Phi^+\rangle\langle\Phi^+|
++
+\dfrac12 \dfrac{I_4}{4}
+\) \\
+mixed entangled state 
+\end{tabular}
+\end{tabular}
+\end{center}
+Here $\frac{I_4}{4}=\frac{I_2}{2} \otimes\frac{I_2}{2}=\big(\frac{1}{2}( |0\rangle \langle 0 | + |1\rangle \langle 1 | ) \big)\big(\frac{1}{2}( |0\rangle \langle 0 | + |1\rangle \langle 1 | ) \big) = \frac{1}{4} \sum_{(i,j) \in \{0,1\}^2} |ij\rangle \langle ij|$ is separable and mixed.
+\end{enumerate}
+
+\subsection{Partial trace}
+For a bipartite system $\mathcal{H}=\mathcal{H}_A \otimes \mathcal{H}_B$, 
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,77 @@
+\usepackage[utf8]{inputenc} % Allows input of utf-8 characters
+\usepackage[T1]{fontenc} % Font encoding
+\usepackage{geometry} % To adjust margins
+\usepackage{graphicx} % For including graphics
+\usepackage{amsmath} % For math formatting
+\usepackage{amssymb} % For additional math symbols
+\usepackage{hyperref} % For hyperlinks
+\usepackage{mathabx}
+\usepackage{rotating}
+\usepackage{xcolor}
+\usepackage{mathtools}
+
+\newcommand{\st}{\text{ s.t. }}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}} % unit disk on the complex plane 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\SU}{\text{SU}}
+
+\newcommand{\supnorm}[1]{\|#1\|_\infty}
+\newcommand{\twonorm}[1]{\|#1\|_2}
+\newcommand{\supp}{\text{supp}}
+\newcommand{\ran}{\text{ran}} % range of a linear map
+\newcommand{\Real}{\text{Re}} % real part
+\newcommand{\Imag}{\text{Im}} % imaginary part
+
+\newcommand{\co}{\text{conv}} % convex hull
+\newcommand{\rank}{\text{rank}}
+
+\newcommand{\pard}{\partial}
+\newcommand{\fracpard}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\T}{\intercal} % matrix transpose
+\newcommand{\inv}[1]{#1^{-1}}
+\newcommand{\col}{\text{col}}
+\newcommand{\row}{\text{row}}
+\newcommand{\vecc}{\text{vec}_c}
+\newcommand{\vecr}{\text{vec}_r}
+\newcommand{\tr}{\text{tr}} % trace
+\newcommand{\adj}{\text{adj}} % adjugate
+\newcommand{\replaceCol}[3]{#1\underset{#3}{\leftarrow}#2}
+\newcommand{\diag}[1]{\text{diag}\{#1\}}
+\newcommand{\bra}{\langle}
+\newcommand{\ket}{\rangle}
+\newcommand{\spn}[1]{\text{span}\{#1\}} % span of vectors
+\newcommand{\bd}{\text{bd}} % boundary
+
+\newcommand{\Gr}{\text{Gr}} % Grassmannian
+
+\newcommand{\antiddots}{\begin{sideways} $\ddots$ \end{sideways}}
+
+\newcommand{\Prf}{\textbf{Proof: }}
+\newcommand{\QED}{$\blacksquare$}
+\newcommand{\Rmk}{\textbf{Remark: }}
+
+\DeclarePairedDelimiter\ceil{\bigg\lceil}{\bigg\rceil}
+\DeclarePairedDelimiter\floor{\bigg\lfloor}{\bigg\rfloor}
+
+% group theory
+\newcommand{\ord}{\text{ord}} % order of a group, or of an element
+
+% distributions
+\newcommand{\Normal}{\mathcal{N}}
+\newcommand{\Bernoulli}{\text{Bern}}
+\newcommand{\cov}{\text{cov}}
+\newcommand{\cor}{\text{cor}}
+\newcommand{\var}{\text{var}}
+\newcommand{\E}{\mathbb{E}}
+
+% Page layout settings
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  top=20mm,
+}
